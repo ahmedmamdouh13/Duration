@@ -39,13 +39,34 @@ class GetHolidaysUseCaseTest {
             runBlocking {
                 repository.getHolidayList(location)
             }
-        }returns Given.statusDomainModelList
+        }returns Given.statusSuccessDomainModelList
         //then
         runBlocking {
 
             val status = getHolidaysUseCase.getHolidaysFoundInLocation(location)
             assertEquals(status.status,Status.SUCCESS)
             assertEquals(status.data[0].name,Given.listDomainModel[0].name)
+        }
+
+
+    }
+
+    @Test
+    fun shouldSucceedReturnHolidaysLocal(){
+        //given
+        getHolidaysUseCase = GetHolidaysUseCase(repository)
+        //when
+        every {
+        runBlocking {
+            repository.getHolidaysLocally()
+            }
+        }returns Given.listDomainModel
+        //then
+        runBlocking {
+            val localHolidays = getHolidaysUseCase.getLocalHolidays()
+
+            assertEquals(localHolidays[0].name,Given.listHoliday[0].name)
+
         }
 
 

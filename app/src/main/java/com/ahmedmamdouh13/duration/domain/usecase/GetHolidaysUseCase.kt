@@ -6,10 +6,8 @@ import com.ahmedmamdouh13.duration.domain.interactor.HolidaysInteractor
 import com.ahmedmamdouh13.duration.domain.model.HolidaysDomain
 
 class GetHolidaysUseCase(private val repo:ArticleRepository) : HolidaysInteractor{
-    override suspend fun getHolidays(): List<HolidaysDomain> {
+    override suspend fun getLocalHolidays(): List<HolidaysDomain> = repo.getHolidaysLocally()
 
-        return emptyList()
-    }
 
     override suspend fun getHolidaysFoundInLocation(location: String): ArticleStatus<List<HolidaysDomain>>
             = repo.getHolidayList(location)
