@@ -49,7 +49,6 @@ class MainViewModelTest {
         //given
 
         mainViewModel = MainViewModel(holidaysUseCase)
-        mainViewModel.bind(mainView)
 
         //when
         every {
@@ -81,7 +80,6 @@ class MainViewModelTest {
     fun shouldFailReturnPOJOHolidays(){
         //given
         mainViewModel = MainViewModel(holidaysUseCase)
-        mainViewModel.bind(mainView)
         //when
         every {
             runBlocking {

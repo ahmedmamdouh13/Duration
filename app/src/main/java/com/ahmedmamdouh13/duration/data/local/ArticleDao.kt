@@ -1,14 +1,12 @@
 package com.ahmedmamdouh13.duration.data.local
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 import com.ahmedmamdouh13.duration.data.entity.Holiday
 
 @Dao
 interface ArticleDao {
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAllArticles(holiday: List<Holiday>):List<Long>
 
     @Query("SELECT * FROM holiday")

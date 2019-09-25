@@ -5,7 +5,7 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.ahmedmamdouh13.duration.data.entity.Holiday
 
-@Database(entities = [Holiday::class],version = 1,exportSchema = false)
+@Database(entities = [Holiday::class],version = 4,exportSchema = false)
 @TypeConverters(DateTypeConverter::class)
 abstract class ArticleDatabase : RoomDatabase() {
     abstract val dao:ArticleDao

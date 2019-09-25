@@ -26,7 +26,7 @@ class ArticleRepositoryImpl(
                  val list = holidays
                 .map {
 
-                    HolidaysDomain(it.name!!, it.date.toString(), it.locations!!, " ")
+                    HolidaysDomain(it.name, DateTypeConverter().run{toString(it.date)}, it.locations, it.description ?: "" )
 
                 }
                  val articleStatus = ArticleStatus(list)
@@ -68,11 +68,11 @@ class ArticleRepositoryImpl(
     return dao.getAllArticle().map {
         it.let {
 
-            HolidaysDomain(it.name!!
+            HolidaysDomain(it.name
                 ,DateTypeConverter()
-                    .toString(it.date!!)
-                ,it.locations!!
-                ,it.description.let {s -> "$s"})
+                    .toString(it.date)
+                ,it.locations
+                ,it.description ?: "")
         }
     }
     }

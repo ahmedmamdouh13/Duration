@@ -5,7 +5,10 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.DefaultItemAnimator
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.ahmedmamdouh13.duration.R
+import com.ahmedmamdouh13.duration.presentation.adapter.RecyclerAdapter
 import com.ahmedmamdouh13.duration.presentation.model.HolidaysModel
 import com.ahmedmamdouh13.duration.presentation.view.MainView
 import com.ahmedmamdouh13.duration.presentation.viewmodel.MainViewModel
@@ -14,7 +17,7 @@ import kotlinx.coroutines.*
 import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
 
-class MainActivity : AppCompatActivity(),MainView {
+class MainActivity : AppCompatActivity() {
 
 
     private val mViewModel : MainViewModel by viewModel()
@@ -22,7 +25,15 @@ class MainActivity : AppCompatActivity(),MainView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        mViewModel.bind(this)
+        mViewModel.msg.observe(this, Observer {msg ->
+            Toast.makeText(this,msg,Toast.LENGTH_LONG).show()
+        })
+
+        mViewModel.viewList.observe(this, Observer {
+            recyclerview_activitymain.layoutManager = LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false)
+            recyclerview_activitymain.itemAnimator = DefaultItemAnimator()
+            recyclerview_activitymain.adapter = RecyclerAdapter().apply { list = it }
+        })
 
         GlobalScope.launch {
             mViewModel.getHolidayListInLocation("EG")
@@ -30,12 +41,9 @@ class MainActivity : AppCompatActivity(),MainView {
 
     }
 
-    override fun toast(message: String) {
-        Toast.makeText(this,message,Toast.LENGTH_LONG).show()
-    }
+//    override fun toast(message: String) {
+//    }
 
-    override fun displayList(list: List<HolidaysModel>) {
 
-    }
 
 }

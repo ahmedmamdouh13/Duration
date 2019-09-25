@@ -10,15 +10,13 @@ import com.ahmedmamdouh13.duration.data.local.DateTypeConverter
 class Holiday {
 
 
-    @PrimaryKey(autoGenerate = true)
-    var primaryKey = 0
-
     @TypeConverters(DateTypeConverter::class)
-    var date: Date? = null
+    var date: Date = Date()
 
-    var description: String? = null
-    var locations: String? = null
-    var name: String? = null
-    var states: String? = null
+    var description: String? = ""
+    var locations: String = ""
+    @PrimaryKey
+    var name: String = ""
+    var states: String? = ""
 
 }

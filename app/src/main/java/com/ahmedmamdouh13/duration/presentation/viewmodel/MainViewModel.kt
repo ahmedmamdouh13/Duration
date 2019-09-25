@@ -1,5 +1,6 @@
 package com.ahmedmamdouh13.duration.presentation.viewmodel
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.ahmedmamdouh13.duration.data.entity.status.ArticleStatus
@@ -18,33 +19,39 @@ import kotlin.coroutines.coroutineContext
 
 class MainViewModel(private var holidaysUseCase: HolidaysInteractor) : ViewModel() {
 
-    private lateinit var view: MainView
+   internal var msg : MutableLiveData<String> = MutableLiveData()
+   internal var viewList : MutableLiveData<List<HolidaysModel>> = MutableLiveData()
 
     suspend fun getHolidayListInLocation(location: String) {
 
        val status = holidaysUseCase.getHolidaysFoundInLocation(location)
-       if (status.status == Status.SUCCESS) {
-           val list = status.data.map {
-               HolidaysModel(it.name, it.date, it.location, it.desc)
-           }
-           view.displayList(list)
-       }else if (status.status == Status.ERROR) {
-           println(status.message)
-           GlobalScope.launch(Dispatchers.Main) {
-               view.toast(status.message)
-           }
-           val localHolidays = holidaysUseCase.getLocalHolidays()
-           println(localHolidays[0].name)
-           println(localHolidays[0].date)
-           println(localHolidays[0].location)
+        when {
+            status.status == Status.SUCCESS ->
+
+                status.data.map {
+                HolidaysModel(it.name, it.date, it.location, it.desc)
+            }.apply {
+                viewList.postValue(this)
+            }
+
+            status.status == Status.ERROR ->
+            {
+                println(status.message)
+
+                holidaysUseCase.getLocalHolidays()
+                    .map {
+                        HolidaysModel(it.name, it.date, it.location, it.desc)
+                    }
+                    .run {
+                        viewList.postValue(this)
+                    }
 
 
-       }
+            }
+        }
+        msg.postValue(status.message)
     }
 
-    fun bind(mainView: MainView) {
-        view=mainView
-    }
 
 
 }

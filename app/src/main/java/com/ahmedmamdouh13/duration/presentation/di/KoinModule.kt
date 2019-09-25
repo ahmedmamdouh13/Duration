@@ -27,6 +27,7 @@ val module = module {
 Room.databaseBuilder(androidContext(),
     ArticleDatabase::class.java,
     "ArticleDatabase")
+    .fallbackToDestructiveMigration()
     .build().dao
     }
     single<ArticleRepository> { ArticleRepositoryImpl(get(),get()) }
