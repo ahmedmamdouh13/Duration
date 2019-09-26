@@ -13,22 +13,18 @@ import kotlin.coroutines.suspendCoroutine
 
 class ArticleRepositoryImpl(
     private var retrofitService: RetrofitService,
-    private var
-    dao: ArticleDao
-) : ArticleRepository{
+    private var dao: ArticleDao ) : ArticleRepository{
     override suspend fun getHolidayList(s: String): ArticleStatus<List<HolidaysDomain>>{
         val response = retrofitService.getCountryHolidays(s)
       return  try {
             val await = response.await()
              if (await.isSuccessful) {
-                 val holidays = await.body()!!
-                     .response!!.holidays!!
-                 val list = holidays
-                .map {
+                 val holidays = await.body()?.response?.holidays
+                 val list = holidays!!.map {
 
-                    HolidaysDomain(it.name, DateTypeConverter().run{toString(it.date)}, it.locations, it.description ?: "" )
+                     HolidaysDomain(it.name, DateTypeConverter().run{toString(it.date)}, it.locations, it.description ?: "" )
 
-                }
+                 }
                  val articleStatus = ArticleStatus(list)
                  articleStatus.status = Status.SUCCESS
                  articleStatus.message = "Holidays loaded successfully."
@@ -37,7 +33,7 @@ class ArticleRepositoryImpl(
 
                   holidays.let {mList ->
 
-                          val insertArticle = dao.insertAllArticles(mList)
+                          val insertArticle = mList.let { dao.insertAllArticles(it) }
 
                       println(list[0].name + "Impl ${insertArticle[0]}")
                       println(list[1].name + "Impl ${insertArticle[1]}")

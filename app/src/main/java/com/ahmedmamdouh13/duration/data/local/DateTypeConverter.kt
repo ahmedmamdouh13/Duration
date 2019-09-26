@@ -8,7 +8,7 @@ class DateTypeConverter {
 
     @TypeConverter
     fun toString(date: Date):String = date.let {
-        val datetime = it.datetime!!
+        val datetime = it.datetime
         "${datetime.day}/${datetime.month}/${datetime.year}"
     }
     @TypeConverter
@@ -16,9 +16,9 @@ class DateTypeConverter {
         val date = Date()
         date.datetime = Datetime()
         val split = it.split("/")
-        date.datetime!!.day = split[0].toLong()
-        date.datetime!!.month = split[1].toLong()
-        date.datetime!!.year = split[2].toLong()
+        date.datetime.day = split[0].toLong()
+        date.datetime.month = split[1].toLong()
+        date.datetime.year = split[2].toLong()
         date
     }
 }

@@ -11,7 +11,6 @@ import com.ahmedmamdouh13.duration.data.entity.status.Status
 import com.ahmedmamdouh13.duration.domain.interactor.HolidaysInteractor
 import com.ahmedmamdouh13.duration.domain.model.HolidaysDomain
 import com.ahmedmamdouh13.duration.presentation.model.HolidaysModel
-import com.ahmedmamdouh13.duration.presentation.view.MainView
 
 import io.mockk.impl.annotations.MockK
 import kotlinx.coroutines.*
@@ -29,8 +28,6 @@ class MainViewModelTest {
     @MockK
     lateinit var holidaysUseCase: HolidaysInteractor
 
-    @MockK
-    lateinit var mainView: MainView
 
     private lateinit var mainViewModel : MainViewModel
 

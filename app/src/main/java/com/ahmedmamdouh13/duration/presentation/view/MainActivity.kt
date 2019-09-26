@@ -1,20 +1,16 @@
-package com.ahmedmamdouh13.duration.presentation
+package com.ahmedmamdouh13.duration.presentation.view
 
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ahmedmamdouh13.duration.R
 import com.ahmedmamdouh13.duration.presentation.adapter.RecyclerAdapter
-import com.ahmedmamdouh13.duration.presentation.model.HolidaysModel
-import com.ahmedmamdouh13.duration.presentation.view.MainView
 import com.ahmedmamdouh13.duration.presentation.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.*
-import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
@@ -26,6 +22,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         mViewModel.msg.observe(this, Observer {msg ->
+            println(msg)
             Toast.makeText(this,msg,Toast.LENGTH_LONG).show()
         })
 
@@ -38,6 +35,7 @@ class MainActivity : AppCompatActivity() {
         GlobalScope.launch {
             mViewModel.getHolidayListInLocation("EG")
         }
+
 
     }
 
