@@ -1,0 +1,16 @@
+apply plugin: 'kotlin'
+apply plugin: 'kotlin-kapt'
+
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.2"
+
+    testImplementation 'junit:junit:4.12'
+    testImplementation "io.mockk:mockk:1.9.3"
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.3.2'
+
+}
+
+
