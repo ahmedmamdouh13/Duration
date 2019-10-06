@@ -16,6 +16,5 @@ class Holiday {
     var locations: String = ""
     @PrimaryKey
     var name: String = ""
-    var states: String? = ""
 
 }

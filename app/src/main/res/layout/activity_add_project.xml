@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/container_linearlayout_addprojectactivity"
+    tools:context=".presentation.view.AddProjectActivity">
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:lines="1"
+        android:id="@+id/title_edittext_addprojcectactivity"
+        android:maxLines="1"
+        android:hint="Project I"/>
+
+
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:text="Starting Date : "
+            />
+        <androidx.appcompat.widget.AppCompatEditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="dd"
+            android:id="@+id/day_edittext_addprojcectactivity"
+            android:lines="1"
+            android:gravity="center"
+            android:maxLength="2"
+            android:maxLines="1"
+            android:inputType="date"
+            />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="mm"
+            android:lines="1"
+            android:id="@+id/month_edittext_addprojcectactivity"
+
+            android:gravity="center"
+            android:maxLength="2"
+            android:maxLines="1"
+            android:inputType="date"
+            />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="yyyy"
+            android:lines="1"
+            android:maxLength="4"
+            android:id="@+id/year_edittext_addprojcectactivity"
+            android:gravity="center"
+            android:maxLines="1"
+            android:inputType="date"
+            />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Ending Date : "
+            />
+        <androidx.appcompat.widget.AppCompatEditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="dd"
+            android:lines="1"
+            android:id="@+id/endday_edittext_addprojcectactivity"
+            android:maxLength="2"
+            android:maxLines="1"
+            android:gravity="center"
+            android:inputType="date"
+            />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="mm"
+            android:id="@+id/endmonth_edittext_addprojcectactivity"
+            android:lines="1"
+            android:maxLength="2"
+            android:maxLines="1"
+            android:inputType="date"
+            android:gravity="center"
+
+            />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="yyyy"
+            android:lines="1"
+            android:maxLength="4"
+            android:id="@+id/endyear_edittext_addprojcectactivity"
+            android:gravity="center"
+            android:maxLines="1"
+            android:inputType="date"
+            />
+
+    </LinearLayout>
+
+
+</LinearLayout>

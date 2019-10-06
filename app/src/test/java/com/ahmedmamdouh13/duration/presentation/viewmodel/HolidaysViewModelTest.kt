@@ -7,7 +7,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import com.ahmedmamdouh13.duration.Given
 import com.ahmedmamdouh13.duration.Given.locationDomainGiven
-import com.ahmedmamdouh13.duration.data.entity.status.Status
+import com.ahmedmamdouh13.duration.domain.status.Status
 import com.ahmedmamdouh13.duration.domain.interactor.HolidaysInteractor
 import com.ahmedmamdouh13.duration.domain.model.HolidaysDomain
 import com.ahmedmamdouh13.duration.presentation.model.HolidaysModel
@@ -17,7 +17,7 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.test.setMain
 import org.junit.Test
 
-class MainViewModelTest {
+class HolidaysViewModelTest {
 
     @Rule
     @JvmField
@@ -29,7 +29,7 @@ class MainViewModelTest {
     lateinit var holidaysUseCase: HolidaysInteractor
 
 
-    private lateinit var mainViewModel : MainViewModel
+    private lateinit var holidaysViewModel : HolidaysViewModel
 
     @ExperimentalCoroutinesApi
     @Before
@@ -45,17 +45,17 @@ class MainViewModelTest {
     fun shouldSucceedReturnPOJOHolidays(){
         //given
 
-        mainViewModel = MainViewModel(holidaysUseCase)
+        holidaysViewModel = HolidaysViewModel(holidaysUseCase)
 
         //when
         every {
             runBlocking {
                 holidaysUseCase.getHolidaysFoundInLocation(locationDomainGiven)
             }
-        }returns Given.statusSuccessDomainModelList
+        }returns Given.STATUS_SUCCESS_DOMAIN_MODEL_LIST
         runBlocking {
 
-            mainViewModel.getHolidayListInLocation(locationDomainGiven)
+            holidaysViewModel.getHolidayListInLocation(locationDomainGiven)
 
             //then
             val status =
@@ -76,7 +76,7 @@ class MainViewModelTest {
     @Test
     fun shouldFailReturnPOJOHolidays(){
         //given
-        mainViewModel = MainViewModel(holidaysUseCase)
+        holidaysViewModel = HolidaysViewModel(holidaysUseCase)
         //when
         every {
             runBlocking {
@@ -92,7 +92,7 @@ class MainViewModelTest {
         }returns Given.listDomainModel
 
         runBlocking {
-            mainViewModel.getHolidayListInLocation(locationDomainGiven)
+            holidaysViewModel.getHolidayListInLocation(locationDomainGiven)
             val status = holidaysUseCase.getHolidaysFoundInLocation(locationDomainGiven)
             //then
             assert(status.status == Status.ERROR)
@@ -104,7 +104,7 @@ class MainViewModelTest {
     @Test
     fun shouldSucceedGetHolidaysLocal(){
         //given
-        mainViewModel = MainViewModel(holidaysUseCase)
+        holidaysViewModel = HolidaysViewModel(holidaysUseCase)
         //when
         every {
             runBlocking {
@@ -119,7 +119,7 @@ class MainViewModelTest {
         }returns Given.listDomainModel
         //then
         runBlocking {
-            mainViewModel.getHolidayListInLocation(locationDomainGiven)
+            holidaysViewModel.getHolidayListInLocation(locationDomainGiven)
             val localHolidays = holidaysUseCase.getLocalHolidays()
             println(localHolidays[0].name)
             println(localHolidays[1].name)

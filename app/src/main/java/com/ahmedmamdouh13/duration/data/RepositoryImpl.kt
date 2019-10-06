@@ -1,20 +1,22 @@
 package com.ahmedmamdouh13.duration.data
 
-import com.ahmedmamdouh13.duration.data.entity.status.ArticleStatus
-import com.ahmedmamdouh13.duration.data.entity.status.Status
+import com.ahmedmamdouh13.duration.data.entity.ProjectEntity
 import com.ahmedmamdouh13.duration.data.local.ArticleDao
 import com.ahmedmamdouh13.duration.data.local.DateTypeConverter
+import com.ahmedmamdouh13.duration.data.local.ProjectDao
 import com.ahmedmamdouh13.duration.data.network.RetrofitService
-import com.ahmedmamdouh13.duration.domain.ArticleRepository
+import com.ahmedmamdouh13.duration.domain.Repository
 import com.ahmedmamdouh13.duration.domain.model.HolidaysDomain
-import kotlinx.coroutines.*
-import java.lang.Exception
-import kotlin.coroutines.suspendCoroutine
+import com.ahmedmamdouh13.duration.domain.model.ProjectDomainModel
+import com.ahmedmamdouh13.duration.domain.status.MyResult
+import com.ahmedmamdouh13.duration.domain.status.Status
 
-class ArticleRepositoryImpl(
+class RepositoryImpl(
     private var retrofitService: RetrofitService,
-    private var dao: ArticleDao ) : ArticleRepository{
-    override suspend fun getHolidayList(s: String): ArticleStatus<List<HolidaysDomain>>{
+    private var dao: ArticleDao,
+    private var projDao: ProjectDao
+) : Repository{
+    override suspend fun getHolidayList(s: String): MyResult<List<HolidaysDomain>>{
         val response = retrofitService.getCountryHolidays(s)
       return  try {
             val await = response.await()
@@ -25,7 +27,7 @@ class ArticleRepositoryImpl(
                      HolidaysDomain(it.name, DateTypeConverter().run{toString(it.date)}, it.locations, it.description ?: "" )
 
                  }
-                 val articleStatus = ArticleStatus(list)
+                 val articleStatus = MyResult(list)
                  articleStatus.status = Status.SUCCESS
                  articleStatus.message = "Holidays loaded successfully."
 
@@ -51,12 +53,27 @@ class ArticleRepositoryImpl(
 
         }
         catch (e : Exception){
-            val articleStatus = ArticleStatus(listOf<HolidaysDomain>())
+            val articleStatus = MyResult(listOf<HolidaysDomain>())
             articleStatus.status = Status.ERROR
             e.message?.let {
                 articleStatus.message = it
             }
             articleStatus
+        }
+    }
+
+    override suspend fun addProject(title: String, startDate: String, endDate: String): Status {
+
+        val projectEntity = ProjectEntity(title = title, startDate = startDate, endDate = endDate)
+        val isCompleted = projDao.insertProject(projectEntity)
+        println(isCompleted)
+        return  Status.SUCCESS
+    }
+
+    override suspend fun getProjectsLocally(): MyResult<List<ProjectDomainModel>> {
+    return MyResult(data = projDao.getProjects().map { ProjectDomainModel(it.key,it.title,it.startDate,it.endDate) })
+        .also {
+            it.status = Status.SUCCESS
         }
     }
 

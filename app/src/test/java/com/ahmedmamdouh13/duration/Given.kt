@@ -1,15 +1,24 @@
 package com.ahmedmamdouh13.duration
 
 import com.ahmedmamdouh13.duration.data.entity.*
-import com.ahmedmamdouh13.duration.data.entity.status.ArticleStatus
-import com.ahmedmamdouh13.duration.data.entity.status.Status
+import com.ahmedmamdouh13.duration.domain.status.MyResult
+import com.ahmedmamdouh13.duration.domain.status.Status
 import com.ahmedmamdouh13.duration.domain.model.HolidaysDomain
+import com.ahmedmamdouh13.duration.domain.model.ProjectDomainModel
 import com.google.common.net.MediaType.*
 import kotlinx.coroutines.CompletableDeferred
 import okhttp3.MediaType
 import okhttp3.ResponseBody
 
 object Given {
+
+    val title = "Android Project"
+    val startDate = "13/9/2019"
+    val endDate = "15/9/2019"
+
+  var projectEntity = ProjectEntity(key = 0,title = title, startDate = startDate, endDate = endDate)
+  var projectDomain = ProjectDomainModel(key = 0,title = title, startDate = startDate, endDate = endDate)
+
     var listHoliday: List<Holiday>
     val locationDomainGiven = "EG"
     val name1 = "Oct"
@@ -26,10 +35,10 @@ object Given {
     val date2 = "24/8/2019"
     val element3 = HolidaysDomain(name3, date2, locationDomainGiven, desc3)
     val listDomainModel = listOf(element1, element2, element3)
-    val statusSuccessDomainModelList:ArticleStatus<List<HolidaysDomain>> = ArticleStatus(listDomainModel)
-    val statusFailDomainModelList:ArticleStatus<List<HolidaysDomain>>
+    val STATUS_SUCCESS_DOMAIN_MODEL_LIST:MyResult<List<HolidaysDomain>> = MyResult(listDomainModel)
+    val statusFailDomainModelList:MyResult<List<HolidaysDomain>>
    get(){
-       val status = ArticleStatus(emptyList<HolidaysDomain>())
+       val status = MyResult(emptyList<HolidaysDomain>())
        status.status = Status.ERROR
        return status
    }
@@ -58,13 +67,13 @@ object Given {
         holyday1.date = Date()
         holyday2.date = Date()
         holyday3.date = Date()
-        holyday1.date!!.datetime = Datetime()
-        holyday2.date!!.datetime = Datetime()
-        holyday3.date!!.datetime = Datetime()
+        holyday1.date.datetime = Datetime()
+        holyday2.date.datetime = Datetime()
+        holyday3.date.datetime = Datetime()
 
-        holyday1.date!!.iso = date
-        holyday2.date!!.iso = date1
-        holyday3.date!!.iso = date2
+        holyday1.date.iso = date
+        holyday2.date.iso = date1
+        holyday3.date.iso = date2
         listHoliday = listOf(holyday1, holyday2, holyday3)
 
         holidaysResponse.body()!!.response!!.holidays = listOf(holyday1, holyday2, holyday3)

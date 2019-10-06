@@ -1,8 +1,8 @@
 package com.ahmedmamdouh13.duration.domain.usecase
 
 import com.ahmedmamdouh13.duration.Given
-import com.ahmedmamdouh13.duration.data.entity.status.Status
-import com.ahmedmamdouh13.duration.domain.ArticleRepository
+import com.ahmedmamdouh13.duration.domain.status.Status
+import com.ahmedmamdouh13.duration.domain.Repository
 import io.mockk.MockKAnnotations
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
@@ -15,7 +15,7 @@ import org.junit.Before
 class GetHolidaysUseCaseTest {
 
     @MockK
-    lateinit var repository: ArticleRepository
+    lateinit var repository: Repository
 
     private lateinit var getHolidaysUseCase:GetHolidaysUseCase
 
@@ -39,7 +39,7 @@ class GetHolidaysUseCaseTest {
             runBlocking {
                 repository.getHolidayList(location)
             }
-        }returns Given.statusSuccessDomainModelList
+        }returns Given.STATUS_SUCCESS_DOMAIN_MODEL_LIST
         //then
         runBlocking {
 

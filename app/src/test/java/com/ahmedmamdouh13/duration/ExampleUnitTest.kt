@@ -1,9 +1,5 @@
 package com.ahmedmamdouh13.duration
 
-import com.ahmedmamdouh13.duration.presentation.viewmodel.MainViewModel
-import io.mockk.every
-import org.junit.Test
-
 /**
  * Example local unit test, which will execute on the development machine (host).
  *
@@ -11,7 +7,7 @@ import org.junit.Test
  */
 class ExampleUnitTest {
 
-//    private var mainPresenter = MainViewModel()
+//    private var mainPresenter = HolidaysViewModel()
 //
 //
 //

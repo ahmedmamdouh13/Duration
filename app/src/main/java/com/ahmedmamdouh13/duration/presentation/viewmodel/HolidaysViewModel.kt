@@ -2,11 +2,11 @@ package com.ahmedmamdouh13.duration.presentation.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.ahmedmamdouh13.duration.data.entity.status.Status
+import com.ahmedmamdouh13.duration.domain.status.Status
 import com.ahmedmamdouh13.duration.domain.interactor.HolidaysInteractor
 import com.ahmedmamdouh13.duration.presentation.model.HolidaysModel
 
-class MainViewModel(private var holidaysUseCase: HolidaysInteractor) : ViewModel() {
+class HolidaysViewModel(private var holidaysUseCase: HolidaysInteractor) : ViewModel() {
 
    internal var msg : MutableLiveData<String> = MutableLiveData()
    internal var viewList : MutableLiveData<List<HolidaysModel>> = MutableLiveData()
