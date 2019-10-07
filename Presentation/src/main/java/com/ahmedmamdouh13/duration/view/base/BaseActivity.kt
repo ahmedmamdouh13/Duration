@@ -1,17 +1,13 @@
-package com.ahmedmamdouh13.duration.presentation.view.base
+package com.ahmedmamdouh13.duration.view.base
 
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.telecom.TelecomManager
 import android.telephony.TelephonyManager
 import android.view.View
-import android.view.Window
-import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
-import java.util.*
 
 @SuppressLint("Registered")
 abstract class BaseActivity : AppCompatActivity() {

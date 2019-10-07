@@ -1,4 +1,4 @@
-package com.ahmedmamdouh13.duration.presentation.view
+package com.ahmedmamdouh13.duration.view
 
 import android.os.Bundle
 import android.widget.Toast
@@ -7,8 +7,8 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ahmedmamdouh13.duration.R
-import com.ahmedmamdouh13.duration.presentation.adapter.RecyclerAdapter
-import com.ahmedmamdouh13.duration.presentation.viewmodel.HolidaysViewModel
+import com.ahmedmamdouh13.duration.adapter.RecyclerAdapter
+import com.ahmedmamdouh13.duration.viewmodel.HolidaysViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.*
 import org.koin.android.viewmodel.ext.android.viewModel

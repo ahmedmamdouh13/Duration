@@ -1,4 +1,4 @@
-package com.ahmedmamdouh13.duration.presentation.viewmodel
+package com.ahmedmamdouh13.duration.viewmodel
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.ahmedmamdouh13.duration.Given.STATUS_SUCCESS_DOMAIN_MODEL_LIST

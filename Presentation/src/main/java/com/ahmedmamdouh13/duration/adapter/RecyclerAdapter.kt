@@ -1,10 +1,10 @@
-package com.ahmedmamdouh13.duration.presentation.adapter
+package com.ahmedmamdouh13.duration.adapter
 
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.ahmedmamdouh13.duration.R
-import com.ahmedmamdouh13.duration.presentation.model.HolidaysModel
+import com.ahmedmamdouh13.duration.model.HolidaysModel
 import kotlinx.android.synthetic.main.item_holidays.view.*
 
 class RecyclerAdapter : RecyclerView.Adapter<RecyclerAdapter.mViewHolder>() {

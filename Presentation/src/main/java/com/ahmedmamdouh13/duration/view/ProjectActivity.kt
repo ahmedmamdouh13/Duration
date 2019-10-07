@@ -1,12 +1,10 @@
-package com.ahmedmamdouh13.duration.presentation.view
+package com.ahmedmamdouh13.duration.view
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import androidx.lifecycle.Observer
 import com.ahmedmamdouh13.duration.R
-import com.ahmedmamdouh13.duration.presentation.view.base.BaseActivity
-import com.ahmedmamdouh13.duration.presentation.viewmodel.ProjectViewModel
+import com.ahmedmamdouh13.duration.view.base.BaseActivity
+import com.ahmedmamdouh13.duration.viewmodel.ProjectViewModel
 import kotlinx.android.synthetic.main.activity_project.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch

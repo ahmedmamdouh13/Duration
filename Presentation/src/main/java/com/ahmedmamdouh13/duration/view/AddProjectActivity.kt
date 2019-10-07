@@ -1,25 +1,19 @@
-package com.ahmedmamdouh13.duration.presentation.view
+package com.ahmedmamdouh13.duration.view
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.ahmedmamdouh13.duration.R
-import com.ahmedmamdouh13.duration.presentation.view.base.BaseActivity
-import com.ahmedmamdouh13.duration.presentation.viewmodel.AddProjectViewModel
+import com.ahmedmamdouh13.duration.view.base.BaseActivity
+import com.ahmedmamdouh13.duration.viewmodel.AddProjectViewModel
 import com.aminography.primecalendar.PrimeCalendar
 import com.aminography.primecalendar.civil.CivilCalendar
-import com.aminography.primedatepicker.OnDayPickedListener
 import com.aminography.primedatepicker.PickType
 import com.aminography.primedatepicker.fragment.PrimeDatePickerBottomSheet
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_add_project.*
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import org.koin.android.scope.currentScope
 import org.koin.android.viewmodel.ext.android.viewModel
-import java.util.*
 
 class AddProjectActivity : BaseActivity() {
 

@@ -1,4 +1,4 @@
-package com.ahmedmamdouh13.duration.presentation.viewmodel
+package com.ahmedmamdouh13.duration.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

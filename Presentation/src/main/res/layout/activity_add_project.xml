@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:id="@+id/container_linearlayout_addprojectactivity"
-    tools:context=".presentation.view.AddProjectActivity">
+    tools:context=".view.AddProjectActivity">
 
     <androidx.appcompat.widget.AppCompatEditText
         android:layout_width="200dp"

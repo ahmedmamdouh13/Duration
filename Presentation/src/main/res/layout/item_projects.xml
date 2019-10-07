@@ -1,68 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-    <androidx.appcompat.widget.AppCompatTextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Title"
-        android:id="@+id/title_itemprojects"
-        android:layout_margin="16dp"
-        android:textStyle="bold"
-        />
-    <androidx.appcompat.widget.AppCompatTextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Desctription"
-        android:id="@+id/desc_itemprojects"
-        android:layout_margin="16dp"
-        />
-    <RelativeLayout
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:animateLayoutChanges="true"
+    android:layout_height="wrap_content"
+    android:id="@+id/container_framelayout_itemprojects">
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_margin="16dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:animateLayoutChanges="true"
         >
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="13/9"
-        android:id="@+id/start_date_itemproject"
-        android:layout_centerInParent="true"
-        android:layout_alignParentStart="true"
-        />
 
-
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="14/9"
-        android:id="@+id/end_date_itemproject"
-        android:layout_alignParentEnd="true"
-        android:layout_centerInParent="true"
-        />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="4 Days"
-        android:id="@+id/duration_textview_itemproject"
-        android:layout_centerInParent="true"
-        android:layout_above="@id/timeline_imageview_itemproject"
-        />
-
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="10dp"
-            android:background="@drawable/timeline_drawable"
-            android:layout_toEndOf="@id/start_date_itemproject"
-            android:layout_toStartOf="@id/end_date_itemproject"
-            android:layout_centerInParent="true"
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Title"
+            android:id="@+id/title_itemprojects"
             android:layout_margin="16dp"
-            android:id="@+id/timeline_imageview_itemproject"
-
+            android:textStyle="bold"
             />
-</RelativeLayout>
-</LinearLayout>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Desctription"
+            android:id="@+id/desc_itemprojects"
+            android:layout_margin="16dp"
+            android:visibility="gone"
+            />
+    </LinearLayout>
+    <androidx.cardview.widget.CardView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="end|center"
+        android:animateLayoutChanges="true"
+        android:layout_margin="16dp"
+        app:cardCornerRadius="25dp"
+        app:cardElevation="8dp"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="1"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            />
+    </androidx.cardview.widget.CardView>
+</FrameLayout>

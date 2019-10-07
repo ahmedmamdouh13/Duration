@@ -14,16 +14,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
-        <activity android:name=".presentation.view.ProjectActivity"></activity>
-        <activity android:name=".presentation.view.AddProjectActivity" />
-        <activity android:name=".presentation.view.IntroActivity">
+        <activity android:name="com.ahmedmamdouh13.duration.view.ProjectActivity"></activity>
+        <activity android:name="com.ahmedmamdouh13.duration.view.AddProjectActivity" />
+        <activity android:name="com.ahmedmamdouh13.duration.view.IntroActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".presentation.view.HolidaysActivity" />
+        <activity android:name="com.ahmedmamdouh13.duration.view.HolidaysActivity" />
     </application>
 
 </manifest>

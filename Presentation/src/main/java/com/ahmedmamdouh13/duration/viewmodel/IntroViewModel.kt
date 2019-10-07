@@ -1,11 +1,11 @@
-package com.ahmedmamdouh13.duration.presentation.viewmodel
+package com.ahmedmamdouh13.duration.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.ahmedmamdouh13.domain.interactor.HolidaysInteractor
 import com.ahmedmamdouh13.domain.interactor.ProjectInteractor
-import com.ahmedmamdouh13.duration.presentation.model.HolidaysModel
-import com.ahmedmamdouh13.duration.presentation.model.ProjectModel
+import com.ahmedmamdouh13.duration.model.HolidaysModel
+import com.ahmedmamdouh13.duration.model.ProjectModel
 
 class IntroViewModel(
     private val addProjectUseCase: ProjectInteractor,

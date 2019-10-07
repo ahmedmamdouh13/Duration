@@ -1,25 +1,19 @@
-package com.ahmedmamdouh13.duration.presentation.view
+package com.ahmedmamdouh13.duration.view
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import com.ahmedmamdouh13.duration.R
-import com.ahmedmamdouh13.duration.presentation.model.ProjectModel
-import com.ahmedmamdouh13.duration.presentation.view.base.BaseActivity
-import com.ahmedmamdouh13.duration.presentation.viewmodel.IntroViewModel
+import com.ahmedmamdouh13.duration.model.ProjectModel
+import com.ahmedmamdouh13.duration.view.base.BaseActivity
+import com.ahmedmamdouh13.duration.viewmodel.IntroViewModel
 import kotlinx.android.synthetic.main.activity_intro.*
 import kotlinx.android.synthetic.main.item_projects.view.*
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import org.koin.android.ext.android.get
 import org.koin.android.viewmodel.ext.android.viewModel
-import kotlin.reflect.KProperty
 
 class IntroActivity : BaseActivity() {
 
@@ -55,8 +49,8 @@ class IntroActivity : BaseActivity() {
         LayoutInflater.from(this).inflate(R.layout.item_projects, null)
             .apply {
                 this.title_itemprojects.text = it.title
-                this.start_date_itemproject.text = it.startDate
-                this.end_date_itemproject.text = it.endDate
+//                this.start_date_itemproject.text = it.startDate
+//                this.end_date_itemproject.text = it.endDate
                 when(it.key%2) {
                   0 ->  this.setBackgroundColor(
                         ContextCompat.getColor(

@@ -1,4 +1,4 @@
-package com.ahmedmamdouh13.duration.presentation.di
+package com.ahmedmamdouh13.duration.di
 
 import androidx.room.Room
 import com.ahmedmamdouh13.data.RepositoryImpl
@@ -9,10 +9,10 @@ import com.ahmedmamdouh13.domain.interactor.HolidaysInteractor
 import com.ahmedmamdouh13.domain.interactor.ProjectInteractor
 import com.ahmedmamdouh13.domain.usecase.AddProjectUseCase
 import com.ahmedmamdouh13.domain.usecase.GetHolidaysUseCase
-import com.ahmedmamdouh13.duration.presentation.viewmodel.AddProjectViewModel
-import com.ahmedmamdouh13.duration.presentation.viewmodel.HolidaysViewModel
-import com.ahmedmamdouh13.duration.presentation.viewmodel.IntroViewModel
-import com.ahmedmamdouh13.duration.presentation.viewmodel.ProjectViewModel
+import com.ahmedmamdouh13.duration.viewmodel.AddProjectViewModel
+import com.ahmedmamdouh13.duration.viewmodel.HolidaysViewModel
+import com.ahmedmamdouh13.duration.viewmodel.IntroViewModel
+import com.ahmedmamdouh13.duration.viewmodel.ProjectViewModel
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import okhttp3.OkHttpClient
 import org.koin.android.ext.koin.androidContext

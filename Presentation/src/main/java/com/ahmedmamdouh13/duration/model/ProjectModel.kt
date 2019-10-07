@@ -1,4 +1,4 @@
-package com.ahmedmamdouh13.duration.presentation.model
+package com.ahmedmamdouh13.duration.model
 
 
 data class ProjectModel (

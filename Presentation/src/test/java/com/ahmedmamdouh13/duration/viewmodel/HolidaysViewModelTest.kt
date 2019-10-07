@@ -1,4 +1,4 @@
-package com.ahmedmamdouh13.duration.presentation.viewmodel
+package com.ahmedmamdouh13.duration.viewmodel
 
 import io.mockk.*
 import org.junit.Before
@@ -10,7 +10,7 @@ import com.ahmedmamdouh13.duration.Given.locationDomainGiven
 import com.ahmedmamdouh13.domain.status.Status
 import com.ahmedmamdouh13.domain.interactor.HolidaysInteractor
 import com.ahmedmamdouh13.domain.model.HolidaysDomain
-import com.ahmedmamdouh13.duration.presentation.model.HolidaysModel
+import com.ahmedmamdouh13.duration.model.HolidaysModel
 
 import io.mockk.impl.annotations.MockK
 import kotlinx.coroutines.*

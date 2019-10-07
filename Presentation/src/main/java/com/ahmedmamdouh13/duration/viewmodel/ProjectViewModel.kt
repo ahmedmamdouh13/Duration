@@ -1,10 +1,10 @@
-package com.ahmedmamdouh13.duration.presentation.viewmodel
+package com.ahmedmamdouh13.duration.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.ahmedmamdouh13.domain.interactor.HolidaysInteractor
 import com.ahmedmamdouh13.domain.status.Status
-import com.ahmedmamdouh13.duration.presentation.model.HolidaysModel
+import com.ahmedmamdouh13.duration.model.HolidaysModel
 
 class ProjectViewModel(private val holidaysUseCase: HolidaysInteractor) : ViewModel() {
     internal val holidayLiveData:MutableLiveData<List<HolidaysModel>> = MutableLiveData()

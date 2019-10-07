@@ -1,7 +1,7 @@
 package com.ahmedmamdouh13.duration.application
 
 import android.app.Application
-import com.ahmedmamdouh13.duration.presentation.di.module
+import com.ahmedmamdouh13.duration.di.module
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.logger.AndroidLogger
 import org.koin.core.context.startKoin
