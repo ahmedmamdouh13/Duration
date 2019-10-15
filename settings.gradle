@@ -1,2 +1,2 @@
-include ':Presentation', ':data', ':Domain'
+include ':Presentation', ':data', ':Domain', ':customcalendarview'
 rootProject.name='Duration'

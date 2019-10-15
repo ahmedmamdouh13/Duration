@@ -12,6 +12,15 @@ import com.google.android.material.snackbar.Snackbar
 @SuppressLint("Registered")
 abstract class BaseActivity : AppCompatActivity() {
 
+    private var FLAGS = (View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+            // Set the content to appear under the system bars so that the
+            // content doesn't resize when the system bars hide and show.
+            or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+            or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+            or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+            // Hide the nav bar and status bar
+            or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+            or View.SYSTEM_UI_FLAG_FULLSCREEN)
     internal lateinit var timeZone: String
     abstract val getContentView: Int
 
@@ -26,18 +35,38 @@ abstract class BaseActivity : AppCompatActivity() {
         onViewCreated(savedInstanceState)
     }
 
+    override fun onWindowFocusChanged(hasFocus: Boolean) {
+        super.onWindowFocusChanged(hasFocus)
+        if (hasFocus) {
+            fullScreen()
+        } else {
+            // When PopupMenu appears, the current Activity looses the focus
+            setFlagsOnThePeekView() // Hijack to the current peek view, apply the Flags on it
+        }
+    }
+
+    @SuppressLint("PrivateApi")
+    fun setFlagsOnThePeekView() {
+        try {
+            val wmgClass = Class.forName("android.view.WindowManagerGlobal")
+            val wmgInstance = wmgClass.getMethod("getInstance").invoke(null)
+            val viewsField = wmgClass.getDeclaredField("mViews")
+            viewsField.isAccessible = true
+
+            val views = viewsField.get(wmgInstance) as ArrayList<View>
+            // When the popup appears, its decorView is the peek of the stack aka last item
+            views.last().apply {
+                systemUiVisibility = FLAGS
+                setOnSystemUiVisibilityChangeListener {
+                    systemUiVisibility = FLAGS
+                }
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
     private fun fullScreen() {
-        window.decorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-                // Set the content to appear under the system bars so that the
-                // content doesn't resize when the system bars hide and show.
-                or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                // Hide the nav bar and status bar
-                or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                or View.SYSTEM_UI_FLAG_FULLSCREEN)
-
-
+        window.decorView.systemUiVisibility = FLAGS
     }
 
     private fun sharedPref() {

@@ -8,6 +8,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 class AddProjectViewModel(private val projectUseCase: ProjectInteractor) : ViewModel() {
+    internal val title: MutableLiveData<String> = MutableLiveData()
+    internal val deadLine: MutableLiveData<String> = MutableLiveData()
     internal val updateUISuccess: MutableLiveData<String> = MutableLiveData()
     internal val updateUIFailed: MutableLiveData<String> = MutableLiveData()
 

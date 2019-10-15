@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/container_addtaskfragment">
+<RelativeLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    >
+
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:lines="1"
+        android:id="@+id/title_edittext_addtaskfragment"
+        android:maxLines="1"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/material_size_16"
+        android:hint="Task Title"
+        android:maxLength="20"
+        android:background="@android:color/transparent"
+        />
+    <androidx.appcompat.widget.AppCompatEditText
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:lines="1"
+        android:id="@+id/tag_edittext_addtaskfragment"
+        android:maxLines="1"
+        android:layout_gravity="center"
+        android:layout_below="@id/title_edittext_addtaskfragment"
+        android:layout_margin="@dimen/material_size_16"
+        android:hint="Tag : Easy , Hard , Interesting etc.."
+
+        android:maxLength="20"
+        android:background="@android:color/transparent"
+        />
+</RelativeLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:id="@+id/fab_addtaskfragment"
+        android:layout_margin="@dimen/material_size_16"
+        android:src="@drawable/ic_keyboard_arrow_right_black_24dp"
+        />
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

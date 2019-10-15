@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#643264</color>
-    <color name="colorPrimaryDark">#6e5ff6</color>
-    <color name="colorAccent">#38b5f2</color>
+    <color name="colorPrimary">#FF2A2A</color>
+    <color name="colorPrimaryDark">#FF2A2A</color>
+    <color name="colorAccent">#FF6363</color>
     <color name="colorGrey">#FFFFFF</color>
     <color name="materialBackgroundColor">#212121</color>
     <color name="materialBackgroundColortransparent">#a8303030</color>
@@ -11,6 +11,4 @@
 
     <color name="killedColor">#020438</color>
     <color name="fabColor">#212121</color>
-    <color name="evenItemColor">#464646</color>
-    <color name="oddItemColor">#5D5D5D</color>
 </resources>
