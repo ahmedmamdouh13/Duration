@@ -29,6 +29,7 @@ class CustomCalendarView {
 
 interface callback{
     fun onClickItem(date:String)
+    fun onClickVisibleDate(date:String)
 }
 
     fun init(mView: View, context: Context,callback: callback) {
@@ -82,8 +83,8 @@ interface callback{
 
             dayItem.setOnClickListener {
 
-                listener
-                    .onClickItem("${dayItem.findViewById<TextView>(R.id.daynumber_item_calendar).text} ${mySplit[1]} ${mySplit[0]}")
+                listener.onClickVisibleDate("${dayItem.findViewById<TextView>(R.id.daynumber_item_calendar).text}-${mySplit[1]}-${mySplit[0]}")
+                listener.onClickItem("${dayItem.findViewById<TextView>(R.id.daynumber_item_calendar).text}-$month-${mySplit[0]}")
 
 
             }

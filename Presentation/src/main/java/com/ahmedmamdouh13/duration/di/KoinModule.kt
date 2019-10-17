@@ -40,6 +40,7 @@ Room.databaseBuilder(androidContext(),
     .fallbackToDestructiveMigration()
     .build().dao
     }
+
     single {
         Room.databaseBuilder(androidContext(),
             ArticleDatabase::class.java,
@@ -47,7 +48,14 @@ Room.databaseBuilder(androidContext(),
             .fallbackToDestructiveMigration()
             .build().projDao
     }
-    single<Repository> { RepositoryImpl(get(), get(), get()) }
+    single {
+        Room.databaseBuilder(androidContext(),
+            ArticleDatabase::class.java,
+            "ArticleDatabase")
+            .fallbackToDestructiveMigration()
+            .build().tasksDao
+    }
+    single<Repository> { RepositoryImpl(get(), get(), get(), get()) }
     single<HolidaysInteractor> {
         GetHolidaysUseCase(
             get()

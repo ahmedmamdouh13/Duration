@@ -5,7 +5,10 @@ import androidx.lifecycle.Observer
 import com.ahmedmamdouh13.customcalendarview.CalendarFragment
 import com.ahmedmamdouh13.duration.R
 import com.ahmedmamdouh13.duration.view.base.BaseActivity
+import com.ahmedmamdouh13.duration.view.fragment.AddTaskFragment
+import com.ahmedmamdouh13.duration.view.fragment.ProjectFragment
 import com.ahmedmamdouh13.duration.viewmodel.AddProjectViewModel
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_add_project.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -15,7 +18,7 @@ class AddProjectActivity : BaseActivity(), CalendarFragment.CalendarInterface,
     ProjectFragment.ProjectFragmentInterface, AddTaskFragment.AddTaskFragmentInterface {
 
 
-
+    private var projectKey: Int = 0
     private val mviewModel : AddProjectViewModel by viewModel()
 
     override val getContentView: Int = R.layout.activity_add_project
@@ -23,9 +26,13 @@ class AddProjectActivity : BaseActivity(), CalendarFragment.CalendarInterface,
     override fun onViewCreated(savedInstanceState: Bundle?) {
 
         mviewModel.updateUISuccess.observe(this, Observer {
+
+            Snackbar.make(container_linearlayout_addprojectactivity,it.message,Snackbar.LENGTH_LONG).show()
+            projectKey = it.data.toInt()
+
         })
         mviewModel.updateUIFailed.observe(this, Observer {
-//            Snackbar.make(container_linearlayout_addprojectactivity,it,Snackbar.LENGTH_LONG).show()
+            Snackbar.make(container_linearlayout_addprojectactivity,it,Snackbar.LENGTH_LONG).show()
 
         })
 
@@ -60,15 +67,15 @@ fab_addtask_addprojectactivity.setOnClickListener {
 }
 
 
-        GlobalScope.launch {
-          //  mviewModel.addProject("add add add ","3/9/2019","18/10/2019")
 
-        }
 
 
     }
 
     override fun onDismissAddTaskFragment(title: String, tag: String) {
+        GlobalScope.launch {
+            mviewModel.addTask(title, tag, projectKey)
+        }
 
     }
     override fun onDismissProjectFragment(title: String) {
@@ -86,9 +93,12 @@ fab_addtask_addprojectactivity.setOnClickListener {
     }
 
     override fun dateCallBack(date: String) {
+        GlobalScope.launch {
+            mviewModel.addProject(title_edittext_addprojcectactivity.text.toString(),"TODAY",date)
+        }
+    }
+
+    override fun visibleDateCallBack(date: String) {
         date_addprojectactivity.text = date
-        mviewModel.deadLine.postValue(date)
-
-
     }
 }

@@ -1,4 +1,4 @@
-package com.ahmedmamdouh13.duration.view
+package com.ahmedmamdouh13.duration.view.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,16 +8,16 @@ import android.view.Window
 import androidx.fragment.app.DialogFragment
 import com.ahmedmamdouh13.duration.R
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.fragment_project.view.*
+import kotlinx.android.synthetic.main.fragment_add_task.view.*
 
-class ProjectFragment : DialogFragment() {
+class AddTaskFragment : DialogFragment() {
 
     private var colorBackground: Int = 0
     private lateinit var text: String
-    lateinit var projectFragmentInterface: ProjectFragmentInterface
+    lateinit var addTaskFragment: AddTaskFragmentInterface
 
-interface ProjectFragmentInterface{
-    fun onDismissProjectFragment(title: String)
+interface AddTaskFragmentInterface{
+    fun onDismissAddTaskFragment(title: String,tag:String)
 }
 
     override fun onStart() {
@@ -50,14 +50,15 @@ interface ProjectFragmentInterface{
 //        this.dialog?.window!!.setBackgroundDrawableResource(colorBackground)
 
 
-        val view = inflater.inflate(R.layout.fragment_project, null)
+        val view = inflater.inflate(R.layout.fragment_add_task, null)
 
 
-        view.fab_projectfragment.setOnClickListener {
-            projectFragmentInterface.onDismissProjectFragment(view.title_edittext_projcectfragment.text.toString())
+        view.fab_addtaskfragment.setOnClickListener {
+            addTaskFragment.onDismissAddTaskFragment(view.title_edittext_addtaskfragment.text.toString()
+                ,view.tag_edittext_addtaskfragment.text.toString())
             dismiss()
         }
-        Snackbar.make(view.container_fragmentproject,text,
+        Snackbar.make(view.container_addtaskfragment,text,
             Snackbar.LENGTH_INDEFINITE).show()
 
 

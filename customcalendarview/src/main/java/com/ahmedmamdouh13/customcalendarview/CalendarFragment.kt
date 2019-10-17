@@ -33,6 +33,7 @@ class CalendarFragment : DialogFragment(),CustomCalendarView.callback {
 
     interface CalendarInterface {
         fun dateCallBack(date:String)
+        fun visibleDateCallBack(date:String)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -74,11 +75,14 @@ class CalendarFragment : DialogFragment(),CustomCalendarView.callback {
         return mView
     }
 
+    override fun onClickVisibleDate(date: String) {
+        mCalendarInterface.visibleDateCallBack(date)
+    }
+
     override fun onClickItem(date: String) {
         println(date)
         mCalendarInterface.dateCallBack(date)
         dismiss()
     }
-
 
 }

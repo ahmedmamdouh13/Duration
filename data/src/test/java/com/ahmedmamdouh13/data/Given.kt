@@ -1,16 +1,19 @@
 package com.ahmedmamdouh13.data
 
 import com.ahmedmamdouh13.data.entity.*
-import com.ahmedmamdouh13.domain.status.MyResult
-import com.ahmedmamdouh13.domain.status.Status
 import com.ahmedmamdouh13.domain.model.HolidaysDomain
 import com.ahmedmamdouh13.domain.model.ProjectDomainModel
+import com.ahmedmamdouh13.domain.status.MyResult
+import com.ahmedmamdouh13.domain.status.Status
 import kotlinx.coroutines.CompletableDeferred
 import okhttp3.MediaType
 import okhttp3.ResponseBody
 
 object Given {
 
+    val projectKey: Int = 1
+    val taskTag = "tag"
+    val taskTitle = "title"
     val title = "Android Project"
     val startDate = "13/9/2019"
     val endDate = "15/9/2019"
