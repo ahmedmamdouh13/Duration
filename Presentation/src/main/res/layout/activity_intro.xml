@@ -12,6 +12,7 @@
 <com.google.android.material.appbar.AppBarLayout
     android:layout_width="match_parent"
     android:layout_height="150dp"
+    android:id="@+id/appbar_introactivity"
     android:background="@drawable/color_fade_drawable"
 
     >

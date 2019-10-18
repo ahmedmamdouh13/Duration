@@ -7,11 +7,14 @@ import android.os.Bundle
 import android.telephony.TelephonyManager
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import com.ahmedmamdouh13.duration.util.ThemePreferences
 import com.google.android.material.snackbar.Snackbar
 
 @SuppressLint("Registered")
 abstract class BaseActivity : AppCompatActivity() {
 
+    private var colorCnt: Int = 0
     private var FLAGS = (View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
             // Set the content to appear under the system bars so that the
             // content doesn't resize when the system bars hide and show.
@@ -79,5 +82,25 @@ abstract class BaseActivity : AppCompatActivity() {
     abstract fun onViewCreated(savedInstanceState: Bundle?)
     fun displayMsg(msg: String,rootView: View){
         Snackbar.make(rootView,msg,Snackbar.LENGTH_LONG).show()
+    }
+
+    fun changeColors(vararg res: View) {
+        colorCnt++
+        for (view in res) {
+            view.background = when(colorCnt){
+                0->ContextCompat.getDrawable(this,ThemePreferences().resDrawable2)
+                1->ContextCompat.getDrawable(this,ThemePreferences().resDrawable3)
+                2->ContextCompat.getDrawable(this,ThemePreferences().resDrawable4)
+                3->ContextCompat.getDrawable(this,ThemePreferences().resDrawable5)
+                4->ContextCompat.getDrawable(this,ThemePreferences().resDrawable6)
+                5->ContextCompat.getDrawable(this,ThemePreferences().resDrawable1)
+                else -> {
+                    colorCnt = 0
+                    ContextCompat.getDrawable(this,ThemePreferences().resDrawable2)
+                }
+
+            }
+
+        }
     }
 }

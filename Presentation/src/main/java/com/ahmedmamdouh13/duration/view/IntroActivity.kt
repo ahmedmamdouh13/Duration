@@ -29,6 +29,11 @@ class IntroActivity : BaseActivity() {
 
         add_fab_introactivity.setOnClickListener { startActivity(Intent(this,AddProjectActivity::class.java)) }
 
+        toolbar_activityintro.inflateMenu(R.menu.themes_menu)
+        toolbar_activityintro.setOnMenuItemClickListener {
+            changeColors(container_activityintro,appbar_introactivity)
+            true
+        }
         introViewModel.projectLiveData.observe(this, Observer {
             for (projectModel in it) {
                 addProjectsToView(projectModel)
@@ -41,6 +46,8 @@ class IntroActivity : BaseActivity() {
         }
         println(str)
     }
+
+
 
     private fun addProjectsToView(it: ProjectModel) {
         LayoutInflater.from(this).inflate(R.layout.item_projects, null)
