@@ -34,11 +34,12 @@ dependencies {
 //modules
     implementation project(path: ':Domain')
     implementation project(path: ':data')
+    implementation project(path: ':customcalendarview')
     //appcompat
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0-beta01'
     implementation 'com.aminography:primedatepicker:1.0.12'
     implementation 'com.aminography:primecalendar:1.2.14'
     //kotlin

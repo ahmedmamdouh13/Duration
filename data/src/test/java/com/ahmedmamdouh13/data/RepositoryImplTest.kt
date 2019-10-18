@@ -1,33 +1,36 @@
 package com.ahmedmamdouh13.data
 
-import com.ahmedmamdouh13.data.Given.projectEntity
-import com.ahmedmamdouh13.data.RepositoryImpl
-import com.ahmedmamdouh13.data.Given
 import com.ahmedmamdouh13.data.Given.endDate
+import com.ahmedmamdouh13.data.Given.projectEntity
+import com.ahmedmamdouh13.data.Given.projectKey
 import com.ahmedmamdouh13.data.Given.startDate
+import com.ahmedmamdouh13.data.Given.taskTag
+import com.ahmedmamdouh13.data.Given.taskTitle
 import com.ahmedmamdouh13.data.Given.title
-import com.ahmedmamdouh13.domain.status.Status
+import com.ahmedmamdouh13.data.entity.TaskEntity
 import com.ahmedmamdouh13.data.local.ArticleDao
 import com.ahmedmamdouh13.data.local.ProjectDao
+import com.ahmedmamdouh13.data.local.TasksDao
 import com.ahmedmamdouh13.data.network.RetrofitService
 import com.ahmedmamdouh13.domain.Repository
+import com.ahmedmamdouh13.domain.status.Status
 import io.mockk.MockKAnnotations
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
 import io.mockk.verify
 import kotlinx.coroutines.runBlocking
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
-
-import org.junit.Assert.*
-import org.junit.Rule
 
 class RepositoryImplTest {
 
     @MockK
+    lateinit var taskDao: TasksDao
+    @MockK
     lateinit var projDao: ProjectDao
     @MockK
-    lateinit var retrofitService: RetrofitService
+        lateinit var retrofitService: RetrofitService
     @MockK
     lateinit var dao: ArticleDao
 
@@ -45,7 +48,7 @@ class RepositoryImplTest {
     @Test
     fun shouldSucceedGetHolidayList() {
         //given
-        repository = RepositoryImpl(retrofitService, dao, projDao)
+        repository = RepositoryImpl(retrofitService, dao, projDao, taskDao)
         //when
         every {
             runBlocking {
@@ -79,7 +82,7 @@ class RepositoryImplTest {
     @Test
     fun shouldFailGetHolidayList() {
         //given
-        repository = RepositoryImpl(retrofitService, dao, projDao)
+        repository = RepositoryImpl(retrofitService, dao, projDao, taskDao)
         //when
 
         every {
@@ -96,7 +99,7 @@ class RepositoryImplTest {
     @Test
     fun shouldSucceedReturnHolidaysLocal(){
         //given
-        repository = RepositoryImpl(retrofitService, dao, projDao)
+        repository = RepositoryImpl(retrofitService, dao, projDao, taskDao)
         //when
         every {
             runBlocking {
@@ -114,7 +117,7 @@ class RepositoryImplTest {
     fun shouldSucceedInsertProjectToRoom(){
         //given
        val id =  0L
-        repository = RepositoryImpl(retrofitService, dao, projDao)
+        repository = RepositoryImpl(retrofitService, dao, projDao, taskDao)
 
         //when
 
@@ -127,7 +130,7 @@ class RepositoryImplTest {
         //then
         runBlocking {
            val status = repository.addProject(title, startDate, endDate)
-            assertEquals(status, Status.SUCCESS)
+            assertEquals(status.status, Status.SUCCESS)
         }
       verify {
            runBlocking {
@@ -166,7 +169,7 @@ class RepositoryImplTest {
     @Test
     fun shouldReturnListProjectsLocally(){
         //given
-        repository = RepositoryImpl(retrofitService, dao, projDao)
+        repository = RepositoryImpl(retrofitService, dao, projDao, taskDao)
         //when
         every {
             runBlocking {
@@ -177,6 +180,61 @@ class RepositoryImplTest {
         runBlocking {
             val result= repository.getProjectsLocally()
             assertEquals(result.data[0].title, projectEntity.title)
+        }
+    }
+    @Test
+    fun shouldAddTask(){
+        //given
+        repository = RepositoryImpl(retrofitService, dao, projDao,taskDao)
+        //when
+        every {
+            runBlocking {
+                taskDao.insertTask(TaskEntity(projectKey, taskTitle, taskTag))
+            }
+        }returns 1L
+        //then
+        runBlocking {
+            val result = repository.addTask(projectKey, taskTitle, taskTag)
+            assertEquals(result.data ,1L)
+        }
+        verify {
+            runBlocking {
+                taskDao.insertTask(TaskEntity(projectKey, taskTitle, taskTag))
+            }
+        }
+    }
+
+    @Test
+    fun shouldSuccessfullyGetTasks(){
+        //given
+        repository = RepositoryImpl(retrofitService, dao, projDao, taskDao)
+        val id = 0
+        //when
+        every {
+            runBlocking {
+                taskDao.getTasks(id)
+            }
+        }returns listOf(TaskEntity(projectKey, taskTitle, taskTag))
+        //then
+        runBlocking {
+            val status = repository.getTasks(id).status
+            assertEquals(status , Status.SUCCESS)
+        }
+    }
+    @Test
+    fun shouldFailGetTasks(){
+        //given
+        repository = RepositoryImpl(retrofitService, dao, projDao, taskDao)
+        val id = 0
+        //when
+        every {
+            runBlocking {
+                taskDao.getTasks(id)
+            }
+        }returns listOf(TaskEntity(projectKey, taskTitle, taskTag))
+        //then
+        runBlocking {
+            repository.getTasks(id)
         }
     }
 

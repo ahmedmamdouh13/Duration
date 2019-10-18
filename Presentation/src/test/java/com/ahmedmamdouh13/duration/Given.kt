@@ -1,17 +1,26 @@
 package com.ahmedmamdouh13.duration
 
 import com.ahmedmamdouh13.data.entity.*
-import com.ahmedmamdouh13.domain.status.MyResult
-import com.ahmedmamdouh13.domain.status.Status
 import com.ahmedmamdouh13.domain.model.HolidaysDomain
 import com.ahmedmamdouh13.domain.model.ProjectDomainModel
-import com.google.common.net.MediaType.*
+import com.ahmedmamdouh13.domain.model.TaskDomain
+import com.ahmedmamdouh13.domain.status.MyResult
+import com.ahmedmamdouh13.domain.status.Status
+import com.google.common.net.MediaType.ANY_TEXT_TYPE
 import kotlinx.coroutines.CompletableDeferred
 import okhttp3.MediaType
 import okhttp3.ResponseBody
 
 object Given {
 
+    val taskDomain: List<TaskDomain> = listOf(TaskDomain(0,"","")).map {it.apply{
+        title = taskTitle
+        key = projectKey
+        tag = taskTag
+    }}
+    val projectKey: Int = 0
+    val taskTitle: String = "task_title"
+    val taskTag: String = "task_tag"
     val title = "Android Project"
     val startDate = "13/9/2019"
     val endDate = "15/9/2019"

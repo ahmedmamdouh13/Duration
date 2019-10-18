@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:background="@color/materialBackgroundColortransparent">
+
+
+    <TextView
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:text="Task Title"
+        android:layout_margin="@dimen/material_size_16"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:id="@+id/tasktitle_itemtask"
+        />
+
+    <TextView
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:text="#TAG"
+        android:id="@+id/tasktag_itemtask"
+        android:textStyle="bold"
+        android:layout_margin="@dimen/material_size_16"
+        android:layout_gravity="center"
+        android:gravity="center"
+        />
+
+
+
+
+</LinearLayout>

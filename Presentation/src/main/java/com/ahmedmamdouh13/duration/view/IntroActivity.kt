@@ -3,7 +3,6 @@ package com.ahmedmamdouh13.duration.view
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import com.ahmedmamdouh13.duration.R
 import com.ahmedmamdouh13.duration.model.ProjectModel
@@ -30,6 +29,11 @@ class IntroActivity : BaseActivity() {
 
         add_fab_introactivity.setOnClickListener { startActivity(Intent(this,AddProjectActivity::class.java)) }
 
+        toolbar_activityintro.inflateMenu(R.menu.themes_menu)
+        toolbar_activityintro.setOnMenuItemClickListener {
+            changeColors(container_activityintro,appbar_introactivity)
+            true
+        }
         introViewModel.projectLiveData.observe(this, Observer {
             for (projectModel in it) {
                 addProjectsToView(projectModel)
@@ -40,10 +44,10 @@ class IntroActivity : BaseActivity() {
         GlobalScope.launch{
           introViewModel.initProjects()
         }
-
         println(str)
-
     }
+
+
 
     private fun addProjectsToView(it: ProjectModel) {
         LayoutInflater.from(this).inflate(R.layout.item_projects, null)
@@ -51,20 +55,12 @@ class IntroActivity : BaseActivity() {
                 this.title_itemprojects.text = it.title
 //                this.start_date_itemproject.text = it.startDate
 //                this.end_date_itemproject.text = it.endDate
-                when(it.key%2) {
-                  0 ->  this.setBackgroundColor(
-                        ContextCompat.getColor(
-                            this@IntroActivity,
-                            R.color.colorPrimary
-                        )
-                    )
-                    else -> this.setBackgroundColor(
-                        ContextCompat.getColor(
-                            this@IntroActivity,
-                            R.color.evenItemColor
-                        )
-                    )
-                }
+//                 this.setBackgroundColor(
+//                        ContextCompat.getColor(
+//                            this@IntroActivity,
+//                            R.color.colorPrimary
+//                        ))
+
                 println(it.title + " " + it.key)
 
                 linearLayoutContainer_introactivity.addView(this)

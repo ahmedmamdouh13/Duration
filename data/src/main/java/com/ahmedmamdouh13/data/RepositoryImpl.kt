@@ -1,20 +1,24 @@
 package com.ahmedmamdouh13.data
 
 import com.ahmedmamdouh13.data.entity.ProjectEntity
+import com.ahmedmamdouh13.data.entity.TaskEntity
 import com.ahmedmamdouh13.data.local.ArticleDao
 import com.ahmedmamdouh13.data.local.DateTypeConverter
 import com.ahmedmamdouh13.data.local.ProjectDao
+import com.ahmedmamdouh13.data.local.TasksDao
 import com.ahmedmamdouh13.data.network.RetrofitService
 import com.ahmedmamdouh13.domain.Repository
 import com.ahmedmamdouh13.domain.model.HolidaysDomain
 import com.ahmedmamdouh13.domain.model.ProjectDomainModel
+import com.ahmedmamdouh13.domain.model.TaskDomain
 import com.ahmedmamdouh13.domain.status.MyResult
 import com.ahmedmamdouh13.domain.status.Status
 
 class RepositoryImpl(
     private var retrofitService: RetrofitService,
     private var dao: ArticleDao,
-    private var projDao: ProjectDao
+    private var projDao: ProjectDao,
+    private var taskDao: TasksDao
 ) : Repository{
     override suspend fun getHolidayList(s: String): MyResult<List<HolidaysDomain>> {
         val response = retrofitService.getCountryHolidays(s)
@@ -62,23 +66,55 @@ class RepositoryImpl(
         }
     }
 
-    override suspend fun addProject(title: String, startDate: String, endDate: String): Status {
+    override suspend fun addProject(title: String, startDate: String, endDate: String): MyResult<Long> {
 
         val projectEntity = ProjectEntity(
             title = title,
             startDate = startDate,
             endDate = endDate
         )
-        val isCompleted = projDao.insertProject(projectEntity)
-        println(isCompleted)
-        return  Status.SUCCESS
+        return  try {
+
+            val isCompleted = projDao.insertProject(projectEntity)
+            println(isCompleted)
+              MyResult(isCompleted).apply {
+                status = Status.SUCCESS
+                message = "Project : ($title) is successfully saved."
+            }
+        }catch (e:Exception){
+            MyResult(-1L).apply {
+                status = Status.ERROR
+                 e.message?.let {
+                     message = it
+                }
+            }
+        }
     }
 
     override suspend fun getProjectsLocally(): MyResult<List<ProjectDomainModel>> {
-    return MyResult(data = projDao.getProjects().map { ProjectDomainModel(it.key,it.title,it.startDate,it.endDate) })
-        .also {
-            it.status = Status.SUCCESS
-        }
+    return try {
+
+        MyResult(data = projDao.getProjects().map {
+            ProjectDomainModel(
+                it.key,
+                it.title,
+                it.startDate,
+                it.endDate
+            )
+        })
+            .also {
+                it.status = Status.SUCCESS
+            }
+    }catch (e:Exception){
+        MyResult(data =
+            listOf<ProjectDomainModel>()
+        ).apply {
+            status = Status.ERROR
+            e.message?.let {
+             message = it
+            }
+            }
+    }
     }
 
     override suspend fun getHolidaysLocally(): List<HolidaysDomain> {
@@ -92,6 +128,48 @@ class RepositoryImpl(
                 ,it.description ?: "")
         }
     }
+    }
+
+    override suspend fun addTask(
+        projectKey: Int,
+        taskTitle: String,
+        taskTag: String
+    ): MyResult<Long> {
+
+       return try {
+
+           MyResult(taskDao.insertTask(TaskEntity(projectKey,taskTitle,taskTag))).apply {
+               status = Status.SUCCESS
+               message = "task : $taskTitle added successfully."
+           }
+       }catch (e:Exception){
+           MyResult(-1L).apply {
+               status = Status.ERROR
+           e.message?.let {
+               message = it
+           }
+           }
+       }
+    }
+
+    override suspend fun getTasks(id: Int): MyResult<List<TaskDomain>>  {
+      return try {
+          MyResult(taskDao.getTasks(id).map {
+                  TaskDomain(it.key,it.title,it.tag)
+
+          }).apply {
+              status = Status.SUCCESS
+              message = "Tasks Loaded Successfully."
+              }
+      } catch (e:Exception){
+          MyResult<List<TaskDomain>>(listOf()).apply {
+              status = Status.ERROR
+              e.message?.let {
+              message = it
+              }
+          }
+
+      }
     }
 
     }

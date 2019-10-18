@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#FF2A2A</color>
+    <color name="colorPrimaryDark">#FF2A2A</color>
+    <color name="colorAccent">#FF6363</color>
+    <color name="colorGrey">#FFFFFF</color>
+    <color name="materialBackgroundColor">#212121</color>
+    <color name="materialBackgroundColortransparent">#a8303030</color>
+    <color name="calendarColortransparent">#C8000000</color>
+    <color name="blackColortransparent">#a8000000</color>
+
+    <color name="killedColor">#020438</color>
+    <color name="fabColor">#212121</color>
+</resources>
