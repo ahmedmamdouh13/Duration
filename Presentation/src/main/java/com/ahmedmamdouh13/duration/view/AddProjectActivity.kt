@@ -1,15 +1,20 @@
 package com.ahmedmamdouh13.duration.view
 
 import android.os.Bundle
+import android.view.View
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.DefaultItemAnimator
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.ahmedmamdouh13.customcalendarview.CalendarFragment
 import com.ahmedmamdouh13.duration.R
+import com.ahmedmamdouh13.duration.adapter.TaskListAdapter
 import com.ahmedmamdouh13.duration.view.base.BaseActivity
 import com.ahmedmamdouh13.duration.view.fragment.AddTaskFragment
 import com.ahmedmamdouh13.duration.view.fragment.ProjectFragment
 import com.ahmedmamdouh13.duration.viewmodel.AddProjectViewModel
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_add_project.*
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -24,11 +29,32 @@ class AddProjectActivity : BaseActivity(), CalendarFragment.CalendarInterface,
     override val getContentView: Int = R.layout.activity_add_project
 
     override fun onViewCreated(savedInstanceState: Bundle?) {
+        val taskListAdapter = TaskListAdapter()
+        recyclerview_tasks_addprojectactivity.adapter = taskListAdapter
+        recyclerview_tasks_addprojectactivity.itemAnimator = DefaultItemAnimator()
+        recyclerview_tasks_addprojectactivity.layoutManager = LinearLayoutManager(this,
+            LinearLayoutManager.VERTICAL,
+            false
+            )
 
+
+        GlobalScope.launch(Dispatchers.Main) {
+
+            mviewModel.getListObserver(projectKey).observe(this@AddProjectActivity, Observer { list ->
+
+                placeholder_container_addprojectactivity.visibility = View.GONE
+                for (taskDomain in list) {
+                    taskListAdapter.addNewItem(taskDomain)
+                }
+            })
+        }
         mviewModel.updateUISuccess.observe(this, Observer {
 
             Snackbar.make(container_linearlayout_addprojectactivity,it.message,Snackbar.LENGTH_LONG).show()
             projectKey = it.data.toInt()
+
+
+
 
         })
         mviewModel.updateUIFailed.observe(this, Observer {

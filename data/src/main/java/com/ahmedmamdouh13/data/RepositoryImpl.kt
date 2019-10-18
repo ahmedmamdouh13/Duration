@@ -10,6 +10,7 @@ import com.ahmedmamdouh13.data.network.RetrofitService
 import com.ahmedmamdouh13.domain.Repository
 import com.ahmedmamdouh13.domain.model.HolidaysDomain
 import com.ahmedmamdouh13.domain.model.ProjectDomainModel
+import com.ahmedmamdouh13.domain.model.TaskDomain
 import com.ahmedmamdouh13.domain.status.MyResult
 import com.ahmedmamdouh13.domain.status.Status
 
@@ -149,9 +150,26 @@ class RepositoryImpl(
            }
            }
        }
+    }
 
+    override suspend fun getTasks(id: Int): MyResult<List<TaskDomain>>  {
+      return try {
+          MyResult(taskDao.getTasks(id).map {
+                  TaskDomain(it.key,it.title,it.tag)
 
+          }).apply {
+              status = Status.SUCCESS
+              message = "Tasks Loaded Successfully."
+              }
+      } catch (e:Exception){
+          MyResult<List<TaskDomain>>(listOf()).apply {
+              status = Status.ERROR
+              e.message?.let {
+              message = it
+              }
+          }
 
+      }
     }
 
     }

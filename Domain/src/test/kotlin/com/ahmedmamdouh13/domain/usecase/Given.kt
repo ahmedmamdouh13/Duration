@@ -2,6 +2,7 @@ package com.ahmedmamdouh13.domain.usecase
 
 import com.ahmedmamdouh13.domain.model.HolidaysDomain
 import com.ahmedmamdouh13.domain.model.ProjectDomainModel
+import com.ahmedmamdouh13.domain.model.TaskDomain
 import com.ahmedmamdouh13.domain.status.MyResult
 import com.ahmedmamdouh13.domain.status.Status
 
@@ -13,6 +14,7 @@ object Given {
     val title = "Android Project"
     val startDate = "13/9/2019"
     val endDate = "15/9/2019"
+    val taskDomainList = listOf(TaskDomain(projectKey, taskTitle, taskTag))
 
 
   var projectDomain = ProjectDomainModel(

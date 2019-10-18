@@ -7,6 +7,7 @@ import com.ahmedmamdouh13.domain.status.Status
 import com.ahmedmamdouh13.duration.Given.endDate
 import com.ahmedmamdouh13.duration.Given.projectKey
 import com.ahmedmamdouh13.duration.Given.startDate
+import com.ahmedmamdouh13.duration.Given.taskDomain
 import com.ahmedmamdouh13.duration.Given.taskTag
 import com.ahmedmamdouh13.duration.Given.taskTitle
 import com.ahmedmamdouh13.duration.Given.title
@@ -154,6 +155,27 @@ class AddProjectViewModelTest {
             }
             val result = useCase.addTask(projectKey, taskTitle, taskTag)
             assertEquals(result.status ,Status.ERROR)
+        }
+    }
+    @Test
+    fun shouldGetAllTasks(){
+        //given
+        viewModel = AddProjectViewModel(useCase)
+        val id = 0
+        //when
+        every {
+            runBlocking {
+                useCase.getTasks(id)
+            }
+        }returns MyResult(taskDomain).apply { status = Status.SUCCESS }
+        //then
+        runBlocking {
+            viewModel.getListObserver(id)
+        }
+        verify {
+            runBlocking {
+                useCase.getTasks(id)
+            }
         }
     }
 

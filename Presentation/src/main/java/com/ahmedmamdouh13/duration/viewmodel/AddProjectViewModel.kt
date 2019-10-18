@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.ahmedmamdouh13.domain.interactor.ProjectInteractor
 import com.ahmedmamdouh13.domain.status.MyResult
 import com.ahmedmamdouh13.domain.status.Status
+import com.ahmedmamdouh13.duration.model.TaskModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -14,6 +15,7 @@ class AddProjectViewModel(private val projectUseCase: ProjectInteractor) : ViewM
     internal val deadLine: MutableLiveData<String> = MutableLiveData()
     internal val updateUISuccess: MutableLiveData<MyResult<Long>> = MutableLiveData()
     internal val updateUIFailed: MutableLiveData<String> = MutableLiveData()
+    internal val taskList: MutableLiveData<List<TaskModel>> = MutableLiveData()
 
 
 
@@ -38,6 +40,15 @@ class AddProjectViewModel(private val projectUseCase: ProjectInteractor) : ViewM
                 else -> updateUIFailed.postValue(message)
             }
         }
+    }
+
+ suspend fun getListObserver(id:Int) : MutableLiveData<List<TaskModel>> {
+     val result = projectUseCase.getTasks(id)
+     when(result.status){
+         Status.SUCCESS -> taskList.postValue(result.data.map { TaskModel(it.key,it.title,it.tag) })
+         else -> updateUIFailed.postValue(result.message)
+     }
+    return taskList
     }
 
 

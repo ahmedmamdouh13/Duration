@@ -12,7 +12,7 @@ interface TasksDao {
     @Insert(onConflict = OnConflictStrategy.ABORT)
     suspend fun insertTask(taskEntity: TaskEntity):Long
 
-    @Query("SELECT * FROM taskentity")
-    suspend fun getTasks(): List<TaskEntity>
+    @Query("SELECT * FROM taskentity WHERE `key` = :id ")
+    suspend fun getTasks(id:Int): List<TaskEntity>
 
 }

@@ -204,4 +204,38 @@ class RepositoryImplTest {
         }
     }
 
+    @Test
+    fun shouldSuccessfullyGetTasks(){
+        //given
+        repository = RepositoryImpl(retrofitService, dao, projDao, taskDao)
+        val id = 0
+        //when
+        every {
+            runBlocking {
+                taskDao.getTasks(id)
+            }
+        }returns listOf(TaskEntity(projectKey, taskTitle, taskTag))
+        //then
+        runBlocking {
+            val status = repository.getTasks(id).status
+            assertEquals(status , Status.SUCCESS)
+        }
+    }
+    @Test
+    fun shouldFailGetTasks(){
+        //given
+        repository = RepositoryImpl(retrofitService, dao, projDao, taskDao)
+        val id = 0
+        //when
+        every {
+            runBlocking {
+                taskDao.getTasks(id)
+            }
+        }returns listOf(TaskEntity(projectKey, taskTitle, taskTag))
+        //then
+        runBlocking {
+            repository.getTasks(id)
+        }
+    }
+
 }
