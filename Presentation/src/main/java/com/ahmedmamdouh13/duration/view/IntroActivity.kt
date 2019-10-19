@@ -27,8 +27,8 @@ class IntroActivity : BaseActivity() {
 
     override fun onViewCreated(savedInstanceState: Bundle?) {
 
+        applyCustomColors(container_activityintro,appbar_introactivity)
         add_fab_introactivity.setOnClickListener { startActivity(Intent(this,AddProjectActivity::class.java)) }
-
         toolbar_activityintro.inflateMenu(R.menu.themes_menu)
         toolbar_activityintro.setOnMenuItemClickListener {
             changeColors(container_activityintro,appbar_introactivity)

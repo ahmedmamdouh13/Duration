@@ -3,6 +3,7 @@ package com.ahmedmamdouh13.duration.view.base
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.telephony.TelephonyManager
 import android.view.View
@@ -88,17 +89,39 @@ abstract class BaseActivity : AppCompatActivity() {
         colorCnt++
         for (view in res) {
             view.background = when(colorCnt){
-                0->ContextCompat.getDrawable(this,ThemePreferences().resDrawable2)
-                1->ContextCompat.getDrawable(this,ThemePreferences().resDrawable3)
-                2->ContextCompat.getDrawable(this,ThemePreferences().resDrawable4)
-                3->ContextCompat.getDrawable(this,ThemePreferences().resDrawable5)
-                4->ContextCompat.getDrawable(this,ThemePreferences().resDrawable6)
-                5->ContextCompat.getDrawable(this,ThemePreferences().resDrawable1)
+                0->changeTheme(ThemePreferences.resDrawable2,colorCnt)
+                1->changeTheme(ThemePreferences.resDrawable3,colorCnt)
+                2->changeTheme(ThemePreferences.resDrawable4,colorCnt)
+                3->changeTheme(ThemePreferences.resDrawable5,colorCnt)
+                4->changeTheme(ThemePreferences.resDrawable6,colorCnt)
+                5->changeTheme(ThemePreferences.resDrawable1,colorCnt)
                 else -> {
                     colorCnt = 0
-                    ContextCompat.getDrawable(this,ThemePreferences().resDrawable2)
+                   changeTheme(ThemePreferences.resDrawable2,colorCnt)
                 }
 
+            }
+
+        }
+    }
+
+    private fun changeTheme(res: Int,index: Int): Drawable? {
+        spEdit.edit().putInt("theme",index).apply()
+        return ContextCompat.getDrawable(this,res)
+    }
+
+    fun applyCustomColors(vararg view: View){
+        val index = spEdit.getInt("theme", 0)
+
+
+        for (v in view) {
+            v.background = when(index){
+                0->changeTheme(ThemePreferences.resDrawable2, index)
+                1->changeTheme(ThemePreferences.resDrawable3, index)
+                2->changeTheme(ThemePreferences.resDrawable4, index)
+                3->changeTheme(ThemePreferences.resDrawable5, index)
+                4->changeTheme(ThemePreferences.resDrawable6, index)
+                else->changeTheme(ThemePreferences.resDrawable1, index)
             }
 
         }
