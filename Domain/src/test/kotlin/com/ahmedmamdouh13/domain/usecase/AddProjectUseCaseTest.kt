@@ -6,6 +6,7 @@ import com.ahmedmamdouh13.domain.status.Status
 import com.ahmedmamdouh13.domain.usecase.Given.endDate
 import com.ahmedmamdouh13.domain.usecase.Given.projectDomain
 import com.ahmedmamdouh13.domain.usecase.Given.projectKey
+import com.ahmedmamdouh13.domain.usecase.Given.projectTitle
 import com.ahmedmamdouh13.domain.usecase.Given.startDate
 import com.ahmedmamdouh13.domain.usecase.Given.taskDomainList
 import com.ahmedmamdouh13.domain.usecase.Given.taskTag
@@ -26,7 +27,7 @@ class AddProjectUseCaseTest {
 
     @Before
     fun setUp() {
-        MockKAnnotations.init(this,relaxUnitFun = true)
+        MockKAnnotations.init(this, relaxUnitFun = true)
     }
 
     @Test
@@ -39,7 +40,7 @@ class AddProjectUseCaseTest {
             runBlocking {
                 repo.addProject(title, startDate, endDate)
             }
-        } returns MyResult(1L).apply { status = Status.SUCCESS}
+        } returns MyResult(1L).apply { status = Status.SUCCESS }
         //then
         runBlocking {
             val status = useCase.addProject(title, startDate, endDate)
@@ -53,8 +54,9 @@ class AddProjectUseCaseTest {
         }
 
     }
+
     @Test
-    fun shouldReturnResultListProjects(){
+    fun shouldReturnResultListProjects() {
         //given
         val useCase = AddProjectUseCase(repo)
         //when
@@ -62,7 +64,7 @@ class AddProjectUseCaseTest {
             runBlocking {
                 repo.getProjectsLocally()
             }
-        }returns MyResult(
+        } returns MyResult(
             listOf(
                 projectDomain,
                 projectDomain,
@@ -72,7 +74,7 @@ class AddProjectUseCaseTest {
         //then
         runBlocking {
             val myResult = useCase.getProjects()
-           assert(myResult.data[0].title == projectDomain.title)
+            assert(myResult.data[0].title == projectDomain.title)
         }
         verify {
             runBlocking {
@@ -81,47 +83,71 @@ class AddProjectUseCaseTest {
         }
 
     }
+
     @Test
-    fun shouldAddTaskToRepo(){
+    fun shouldAddTaskToRepo() {
         //given
         val useCase = AddProjectUseCase(repo)
         //when
         every {
             runBlocking {
-                repo.addTask(projectKey,taskTitle,taskTag)
+                repo.addTask(projectKey, taskTitle, taskTag, projectTitle)
             }
-        }returns MyResult<Long>(1).apply { status = Status.SUCCESS }
+        } returns MyResult<Long>(1).apply { status = Status.SUCCESS }
         //then
         runBlocking {
-            val result = useCase.addTask(projectKey, taskTitle, taskTag)
+            val result = useCase.addTask(projectKey, taskTitle, taskTag, projectTitle)
             assert(result.status == Status.SUCCESS)
         }
         verify {
             runBlocking {
-                repo.addTask(projectKey, taskTitle, taskTag)
+                repo.addTask(projectKey, taskTitle, taskTag, projectTitle)
             }
         }
     }
 
     @Test
-    fun shouldSucceedGetAllTasks(){
+    fun shouldSucceedGetAllTasks() {
         //given
         val useCase = AddProjectUseCase(repo)
         val id = 0
         //when
         every {
             runBlocking {
-                repo.getTasks(id)
+                repo.getTasks(id.toString())
             }
-        }returns MyResult(taskDomainList).apply { status = Status.SUCCESS }
+        } returns MyResult(taskDomainList).apply { status = Status.SUCCESS }
         //then
         runBlocking {
             val result = useCase.getTasks(id)
-            assert(result.status == Status.SUCCESS )
+            assert(result.status == Status.SUCCESS)
         }
         verify {
             runBlocking {
-                repo.getTasks(id)
+                repo.getTasks(id.toString())
+            }
+        }
+    }
+
+    @Test
+    fun shouldSucceedGetProjectById() {
+        //given
+        val useCase = AddProjectUseCase(repo)
+        val id = 0
+        //when
+        every {
+            runBlocking {
+                repo.getProjectById(id)
+            }
+        } returns MyResult(projectDomain).apply { status = Status.SUCCESS }
+        //then
+        runBlocking {
+            val result = useCase.getProjectById(id)
+            assert(result.status == Status.SUCCESS)
+        }
+        verify {
+            runBlocking {
+                repo.getProjectById(id)
             }
         }
     }

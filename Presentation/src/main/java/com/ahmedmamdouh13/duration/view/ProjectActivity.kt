@@ -19,7 +19,7 @@ class ProjectActivity : BaseActivity() {
     override fun onViewCreated(savedInstanceState: Bundle?) {
 
         projectViewModel.displayMsgLiveData.observe(this, Observer {
-            displayMsg(it,container_activityproject)
+            displayMsg(it, container_activityproject)
         })
 
 

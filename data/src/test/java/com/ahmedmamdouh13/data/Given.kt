@@ -11,6 +11,7 @@ import okhttp3.ResponseBody
 
 object Given {
 
+    val projectTitle: String = "projTitle"
     val projectKey: Int = 1
     val taskTag = "tag"
     val taskTitle = "title"
@@ -18,18 +19,18 @@ object Given {
     val startDate = "13/9/2019"
     val endDate = "15/9/2019"
 
-  var projectEntity = ProjectEntity(
-      key = 0,
-      title = title,
-      startDate = startDate,
-      endDate = endDate
-  )
-  var projectDomain = ProjectDomainModel(
-      key = 0,
-      title = title,
-      startDate = startDate,
-      endDate = endDate
-  )
+    var projectEntity = ProjectEntity(
+        key = 0,
+        title = title,
+        startDate = startDate,
+        endDate = endDate
+    )
+    var projectDomain = ProjectDomainModel(
+        key = 0,
+        title = title,
+        startDate = startDate,
+        endDate = endDate
+    )
 
     var listHoliday: List<Holiday>
     val locationDomainGiven = "EG"
@@ -53,25 +54,29 @@ object Given {
     val STATUS_SUCCESS_DOMAIN_MODEL_LIST: MyResult<List<HolidaysDomain>> =
         MyResult(listDomainModel)
     val statusFailDomainModelList: MyResult<List<HolidaysDomain>>
-   get(){
-       val status =
-           MyResult(emptyList<HolidaysDomain>())
-       status.status = Status.ERROR
-       return status
-   }
-    val holidaysResponse =retrofit2.Response.success(Holidays())
+        get() {
+            val status =
+                MyResult(emptyList<HolidaysDomain>())
+            status.status = Status.ERROR
+            return status
+        }
+    val holidaysResponse = retrofit2.Response.success(Holidays())
     val holyday1 = Holiday()
     val holyday2 = Holiday()
     val holyday3 = Holiday()
     val statusFailMessage: String = "Error 400"
 
-    val errorHolidaysResponse = retrofit2.Response.error<Holidays>(400, ResponseBody.create(
-        MediaType.parse("Text"), statusFailMessage))
+    val errorHolidaysResponse = retrofit2.Response.error<Holidays>(
+        400, ResponseBody.create(
+            MediaType.parse("Text"), statusFailMessage
+        )
+    )
     val deferredHolidaysError = CompletableDeferred(errorHolidaysResponse)
 
     val deferredHolidaysSuccess = CompletableDeferred(holidaysResponse)
+
     init {
-            holidaysResponse.body()!!.response = Response()
+        holidaysResponse.body()!!.response = Response()
         holyday1.name = name1
         holyday2.name = name2
         holyday3.name = name3

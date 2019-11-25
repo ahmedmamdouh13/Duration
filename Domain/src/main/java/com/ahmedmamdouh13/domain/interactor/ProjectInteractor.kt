@@ -7,6 +7,12 @@ import com.ahmedmamdouh13.domain.status.MyResult
 interface ProjectInteractor {
    suspend fun addProject(title: String, startDate: String, endDate: String): MyResult<Long>
    suspend fun getProjects(): MyResult<List<ProjectDomainModel>>
-   suspend fun addTask(key: Int,taskTitle: String, taskTag: String): MyResult<Long>
+   suspend fun addTask(
+       key: Int,
+       taskTitle: String,
+       taskTag: String,
+       projectTitle: String
+   ): MyResult<Long>
    suspend fun getTasks(id: Int): MyResult<List<TaskDomain>>
+   suspend fun getProjectById(id: Int): MyResult<ProjectDomainModel>
 }

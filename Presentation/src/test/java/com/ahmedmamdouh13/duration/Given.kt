@@ -13,6 +13,7 @@ import okhttp3.ResponseBody
 
 object Given {
 
+    val projectTitle: String = "projectTitle"
     val taskDomain: List<TaskDomain> = listOf(TaskDomain(0,"","")).map {it.apply{
         title = taskTitle
         key = projectKey

@@ -12,17 +12,31 @@ class IntroViewModel(
     private val getHolidaysUseCase: HolidaysInteractor
 ) : ViewModel() {
 
-    internal var projectLiveData:MutableLiveData<List<ProjectModel>> = MutableLiveData()
-    internal var holidaysLiveData:MutableLiveData<HolidaysModel> = MutableLiveData()
+    internal var projectLiveData: MutableLiveData<List<ProjectModel>> = MutableLiveData()
+    private var holidaysLiveData: MutableLiveData<HolidaysModel> = MutableLiveData()
 
 
     suspend fun initProjects() {
-            projectLiveData.postValue(addProjectUseCase.getProjects().data.map { model -> ProjectModel(model.key,model.title,model.startDate,model.endDate)})
+        projectLiveData.postValue(addProjectUseCase.getProjects().data.map { model ->
+            ProjectModel(
+                model.key,
+                model.title,
+                model.startDate,
+                model.endDate
+            )
+        })
     }
 
-    suspend fun initHolidays(timeZone:String) {
+    suspend fun initHolidays(timeZone: String) {
         for (model in getHolidaysUseCase.getHolidaysFoundInLocation(timeZone).data)
-        holidaysLiveData.postValue(HolidaysModel(model.name,model.date,model.location,model.desc))
+            holidaysLiveData.postValue(
+                HolidaysModel(
+                    model.name,
+                    model.date,
+                    model.location,
+                    model.desc
+                )
+            )
     }
 
 

@@ -7,18 +7,18 @@ import com.ahmedmamdouh13.domain.status.Status
 import com.ahmedmamdouh13.duration.model.HolidaysModel
 
 class ProjectViewModel(private val holidaysUseCase: HolidaysInteractor) : ViewModel() {
-    internal val holidayLiveData:MutableLiveData<List<HolidaysModel>> = MutableLiveData()
-    internal val displayMsgLiveData:MutableLiveData<String> = MutableLiveData()
+    private val holidayLiveData: MutableLiveData<List<HolidaysModel>> = MutableLiveData()
+    internal val displayMsgLiveData: MutableLiveData<String> = MutableLiveData()
 
 
     suspend fun initHolidays(location: String) {
         val result = holidaysUseCase.getHolidaysFoundInLocation(location)
         if (result.status == Status.SUCCESS) {
             holidayLiveData.postValue(result.data.map {
-                HolidaysModel(it.name,it.date,it.location,it.desc)
+                HolidaysModel(it.name, it.date, it.location, it.desc)
             })
             displayMsgLiveData.postValue(result.message)
-        }else{
+        } else {
             displayMsgLiveData.postValue(result.message)
             println(result.message)
         }
