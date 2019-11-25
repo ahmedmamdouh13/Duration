@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context=".view.CreateModeActivity"
+
+    >
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        >
+
+        <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:title="Create Mode"
+            app:subtitle="Create a suitable custom mode."
+            app:navigationIcon="@drawable/ic_mode_edit_black_24dp"
+            />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:hintAnimationEnabled="true"
+        app:hintEnabled="true"
+        android:layout_marginStart="@dimen/material_size_16"
+        android:layout_marginEnd="@dimen/material_size_16"
+        >
+
+       <com.google.android.material.textfield.TextInputEditText
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:textSize="@dimen/text_size_normal"
+           android:hint="Mode Name"
+           />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:background="?android:attr/listDivider"
+        />
+
+
+    <androidx.appcompat.widget.AppCompatSpinner
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:spinnerMode="dialog"
+        tools:listitem="@layout/item_task"
+        android:entries="@array/itemsSpinner"
+        android:layout_gravity="start"
+        android:layout_marginStart="@dimen/material_size_16"
+        android:layout_marginEnd="@dimen/material_size_16"
+
+        />
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:background="?android:attr/listDivider"
+        />
+
+
+
+</LinearLayout>

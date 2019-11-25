@@ -13,6 +13,6 @@ interface TasksDao {
     suspend fun insertTask(taskEntity: TaskEntity):Long
 
     @Query("SELECT * FROM taskentity WHERE `key` = :id ")
-    suspend fun getTasks(id:Int): List<TaskEntity>
+    suspend fun getTasks(id:String): List<TaskEntity>
 
 }

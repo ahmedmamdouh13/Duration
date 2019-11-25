@@ -8,7 +8,7 @@
     android:orientation="vertical"
     android:id="@+id/container_linearlayout_addprojectactivity"
     tools:context=".view.AddProjectActivity"
-    android:background="@drawable/color_fade_drawable"
+    android:background="@drawable/color_fade_drawable6"
     >
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:layout_width="wrap_content"
@@ -22,29 +22,12 @@
         />
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="50dp"
         android:id="@+id/appbar_addprojectactivity"
-        android:background="@drawable/color_fade_drawable"
+        android:background="@drawable/color_fade_drawable2"
 
         >
-        <androidx.appcompat.widget.Toolbar
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/color_fade_drawable"
 
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:lines="1"
-            android:id="@+id/title_edittext_addprojcectactivity"
-            android:maxLines="1"
-            android:hint="Project Title"
-            android:maxLength="20"
-            android:gravity="center"
-            android:textSize="@dimen/material_size_24"
-            android:layout_gravity="center"
-            />
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#643264</color>
-    <color name="colorPrimaryDark">#6e5ff6</color>
+    <color name="colorPrimary">#222222</color>
+    <color name="colorPrimaryDark">#222222</color>
     <color name="colorAccent">#38b5f2</color>
+    <color name="colorAccent2">#6038F2</color>
     <color name="colorGrey">#FFFFFF</color>
     <color name="materialBackgroundColor">#212121</color>
     <color name="materialBackgroundColortransparent">#a8303030</color>
@@ -14,21 +15,26 @@
     <color name="evenItemColor">#464646</color>
     <color name="oddItemColor">#5D5D5D</color>
 
-    <color name="colorPrimary2">#32643D</color>
-    <color name="colorPrimaryDark2">#D5F65F</color>
+    <color name="colorPrimary2">#222222</color>
+    <color name="colorPrimaryDark2">#222222</color>
 
     <color name="colorPrimary3">#643232</color>
-    <color name="colorPrimaryDark3">#F68F5F</color>
+    <color name="colorPrimaryDark3">#F65F5F</color>
 
     <color name="colorPrimary4">#324464</color>
     <color name="colorPrimaryDark4">#5FF1F6</color>
 
-    <color name="colorPrimary5">#5D6432</color>
-    <color name="colorPrimaryDark5">#F6AD5F</color>
+    <color name="colorPrimary5">#74ebd5</color>
+    <color name="colorPrimaryDark5">#152C64</color>
 
-    <color name="colorPrimary6">#32643D</color>
-    <color name="colorPrimaryDark6">#5FF685</color>
+    <color name="colorPrimary6">#bc4e9c</color>
+    <color name="colorPrimaryDark6">#f80759</color>
 
-    <color name="colorPrimary7">#325D64</color>
-    <color name="colorPrimaryDark7">#5FF696</color>
+    <color name="colorPrimary7start">#355C7D</color>
+    <color name="colorPrimary7middle">#6C5B7B</color>
+    <color name="colorPrimaryDark7end">#C06C84</color>
+
+    <color name="colorPrimary6start">#0f0c29</color>
+    <color name="colorPrimary6middle">#302b63</color>
+    <color name="colorPrimaryDark6end">#24243e</color>
 </resources>

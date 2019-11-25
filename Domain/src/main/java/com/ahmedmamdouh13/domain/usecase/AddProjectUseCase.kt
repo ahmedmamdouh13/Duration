@@ -9,7 +9,11 @@ import com.ahmedmamdouh13.domain.status.MyResult
 
 class AddProjectUseCase(private val repo: Repository) :
     ProjectInteractor {
-    override suspend fun addProject(title: String, startDate: String, endDate: String): MyResult<Long> {
+    override suspend fun addProject(
+        title: String,
+        startDate: String,
+        endDate: String
+    ): MyResult<Long> {
         return repo.addProject(title, startDate, endDate)
     }
 
@@ -17,12 +21,21 @@ class AddProjectUseCase(private val repo: Repository) :
         return repo.getProjectsLocally()
     }
 
-    override suspend fun addTask(key: Int, taskTitle: String, taskTag: String): MyResult<Long> {
-        return repo.addTask(key,taskTitle, taskTag)
+    override suspend fun addTask(
+        key: Int,
+        taskTitle: String,
+        taskTag: String,
+        projectTitle: String
+    ): MyResult<Long> {
+        return repo.addTask(key, taskTitle, taskTag, projectTitle)
     }
 
     override suspend fun getTasks(id: Int): MyResult<List<TaskDomain>> {
-        return repo.getTasks(id)
+        return repo.getTasks(id.toString())
+    }
+
+    override suspend fun getProjectById(id: Int): MyResult<ProjectDomainModel> {
+        return repo.getProjectById(id)
     }
 
 }

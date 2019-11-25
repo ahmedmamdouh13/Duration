@@ -8,6 +8,7 @@ import com.ahmedmamdouh13.domain.status.Status
 
 object Given {
 
+    val projectTitle: String = "projectTitle"
     val projectKey: Int = 1
     val taskTag = "tag"
     val taskTitle = "title"

@@ -6,6 +6,12 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:colorBackground">@color/colorPrimary</item>
+    </style>
+
+    <style name="Splash" parent="Theme.MaterialComponents.NoActionBar">
+<item name="android:transitionName">@string/sharedIconName</item>
+
     </style>
 
 </resources>

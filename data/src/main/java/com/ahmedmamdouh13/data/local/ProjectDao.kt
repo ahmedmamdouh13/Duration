@@ -15,4 +15,7 @@ interface ProjectDao {
     @Query("SELECT * FROM projectentity")
     suspend fun getProjects(): List<ProjectEntity>
 
+    @Query("SELECT * FROM projectentity WHERE `key` = :id")
+    suspend fun getProjectById(id: Int): ProjectEntity
+
 }

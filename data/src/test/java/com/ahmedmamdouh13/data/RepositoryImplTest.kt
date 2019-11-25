@@ -3,6 +3,7 @@ package com.ahmedmamdouh13.data
 import com.ahmedmamdouh13.data.Given.endDate
 import com.ahmedmamdouh13.data.Given.projectEntity
 import com.ahmedmamdouh13.data.Given.projectKey
+import com.ahmedmamdouh13.data.Given.projectTitle
 import com.ahmedmamdouh13.data.Given.startDate
 import com.ahmedmamdouh13.data.Given.taskTag
 import com.ahmedmamdouh13.data.Given.taskTitle
@@ -13,6 +14,8 @@ import com.ahmedmamdouh13.data.local.ProjectDao
 import com.ahmedmamdouh13.data.local.TasksDao
 import com.ahmedmamdouh13.data.network.RetrofitService
 import com.ahmedmamdouh13.domain.Repository
+import com.ahmedmamdouh13.domain.model.ProjectDomainModel
+import com.ahmedmamdouh13.domain.status.MyResult
 import com.ahmedmamdouh13.domain.status.Status
 import io.mockk.MockKAnnotations
 import io.mockk.every
@@ -30,11 +33,11 @@ class RepositoryImplTest {
     @MockK
     lateinit var projDao: ProjectDao
     @MockK
-        lateinit var retrofitService: RetrofitService
+    lateinit var retrofitService: RetrofitService
     @MockK
     lateinit var dao: ArticleDao
 
-    lateinit var repository : Repository
+    lateinit var repository: Repository
 
 //    @Rule
 //    @JvmField
@@ -42,7 +45,7 @@ class RepositoryImplTest {
 
     @Before
     fun setUp() {
-        MockKAnnotations.init(this,relaxUnitFun = true)
+        MockKAnnotations.init(this, relaxUnitFun = true)
     }
 
     @Test
@@ -54,13 +57,13 @@ class RepositoryImplTest {
             runBlocking {
                 retrofitService.getCountryHolidays(Given.locationDomainGiven)
             }
-        }returns Given.deferredHolidaysSuccess
+        } returns Given.deferredHolidaysSuccess
 
         every {
             runBlocking {
                 dao.insertAllArticles(holiday = Given.deferredHolidaysSuccess.await().body()!!.response!!.holidays)
             }
-        }returns listOf(0,1,2,3)
+        } returns listOf(0, 1, 2, 3)
 
         //then
         runBlocking {
@@ -79,6 +82,7 @@ class RepositoryImplTest {
 
         }
     }
+
     @Test
     fun shouldFailGetHolidayList() {
         //given
@@ -89,15 +93,16 @@ class RepositoryImplTest {
             runBlocking {
                 retrofitService.getCountryHolidays(Given.locationDomainGiven)
             }
-        }returns Given.deferredHolidaysError
+        } returns Given.deferredHolidaysError
         //then
         runBlocking {
-            val status= repository.getHolidayList(Given.locationDomainGiven)
-                assertEquals(status.status, Status.ERROR)
+            val status = repository.getHolidayList(Given.locationDomainGiven)
+            assertEquals(status.status, Status.ERROR)
         }
     }
+
     @Test
-    fun shouldSucceedReturnHolidaysLocal(){
+    fun shouldSucceedReturnHolidaysLocal() {
         //given
         repository = RepositoryImpl(retrofitService, dao, projDao, taskDao)
         //when
@@ -105,18 +110,18 @@ class RepositoryImplTest {
             runBlocking {
                 dao.getAllArticle()
             }
-        }returns Given.listHoliday
+        } returns Given.listHoliday
         //then
         runBlocking {
             val holidaysLocally = repository.getHolidaysLocally()
-            assertEquals(holidaysLocally[0].name ,Given.listHoliday[0].name)
+            assertEquals(holidaysLocally[0].name, Given.listHoliday[0].name)
         }
     }
 
     @Test
-    fun shouldSucceedInsertProjectToRoom(){
+    fun shouldSucceedInsertProjectToRoom() {
         //given
-       val id =  0L
+        val id = 0L
         repository = RepositoryImpl(retrofitService, dao, projDao, taskDao)
 
         //when
@@ -126,21 +131,21 @@ class RepositoryImplTest {
             runBlocking {
                 projDao.insertProject(projectEntity = projectEntity)
             }
-        }returns id
+        } returns id
         //then
         runBlocking {
-           val status = repository.addProject(title, startDate, endDate)
+            val status = repository.addProject(title, startDate, endDate)
             assertEquals(status.status, Status.SUCCESS)
         }
-      verify {
-           runBlocking {
-               projDao.insertProject(projectEntity)
+        verify {
+            runBlocking {
+                projDao.insertProject(projectEntity)
             }
         }
 
     }
 
-//    @Test
+    //    @Test
 //    fun shouldFailInsertProjectToRoom(){
 //        //given
 //       val id =  "-1".toLong()
@@ -167,7 +172,7 @@ class RepositoryImplTest {
 //
 //    }
     @Test
-    fun shouldReturnListProjectsLocally(){
+    fun shouldReturnListProjectsLocally() {
         //given
         repository = RepositoryImpl(retrofitService, dao, projDao, taskDao)
         //when
@@ -175,67 +180,89 @@ class RepositoryImplTest {
             runBlocking {
                 projDao.getProjects()
             }
-        }returns listOf(projectEntity, projectEntity, projectEntity)
+        } returns listOf(projectEntity, projectEntity, projectEntity)
         //then
         runBlocking {
-            val result= repository.getProjectsLocally()
+            val result = repository.getProjectsLocally()
             assertEquals(result.data[0].title, projectEntity.title)
         }
     }
+
     @Test
-    fun shouldAddTask(){
+    fun shouldAddTask() {
         //given
-        repository = RepositoryImpl(retrofitService, dao, projDao,taskDao)
+        repository = RepositoryImpl(retrofitService, dao, projDao, taskDao)
         //when
         every {
             runBlocking {
-                taskDao.insertTask(TaskEntity(projectKey, taskTitle, taskTag))
+                taskDao.insertTask(TaskEntity(projectKey, taskTitle, taskTag, projectTitle))
             }
-        }returns 1L
+        } returns 1L
         //then
         runBlocking {
-            val result = repository.addTask(projectKey, taskTitle, taskTag)
-            assertEquals(result.data ,1L)
+            val result = repository.addTask(projectKey, taskTitle, taskTag, projectTitle)
+            assertEquals(result.data, 1L)
         }
         verify {
             runBlocking {
-                taskDao.insertTask(TaskEntity(projectKey, taskTitle, taskTag))
+                taskDao.insertTask(TaskEntity(projectKey, taskTitle, taskTag, projectTitle))
             }
         }
     }
 
     @Test
-    fun shouldSuccessfullyGetTasks(){
+    fun shouldSuccessfullyGetTasks() {
         //given
         repository = RepositoryImpl(retrofitService, dao, projDao, taskDao)
         val id = 0
         //when
         every {
             runBlocking {
-                taskDao.getTasks(id)
+                taskDao.getTasks(id.toString())
             }
-        }returns listOf(TaskEntity(projectKey, taskTitle, taskTag))
+        } returns listOf(TaskEntity(projectKey, taskTitle, taskTag, projectTitle))
         //then
         runBlocking {
-            val status = repository.getTasks(id).status
-            assertEquals(status , Status.SUCCESS)
+            val status = repository.getTasks(id.toString()).status
+            assertEquals(status, Status.SUCCESS)
         }
     }
+
     @Test
-    fun shouldFailGetTasks(){
+    fun shouldFailGetTasks() {
         //given
         repository = RepositoryImpl(retrofitService, dao, projDao, taskDao)
         val id = 0
         //when
         every {
             runBlocking {
-                taskDao.getTasks(id)
+                taskDao.getTasks(id.toString())
             }
-        }returns listOf(TaskEntity(projectKey, taskTitle, taskTag))
+        } returns listOf(TaskEntity(projectKey, taskTitle, taskTag, projectTitle))
         //then
         runBlocking {
-            repository.getTasks(id)
+            repository.getTasks(id.toString())
         }
+    }
+
+    @Test
+    fun shouldGetProjectByIdSuccess() {
+        //given
+        repository = RepositoryImpl(retrofitService, dao, projDao, taskDao)
+        val id = 0
+        //when
+        every {
+            runBlocking {
+                projDao.getProjectById(id)
+            }
+        } returns projectEntity
+        //then
+        runBlocking {
+            val result: MyResult<ProjectDomainModel> = repository.getProjectById(id)
+            assertEquals(result.status, Status.SUCCESS)
+        }
+
+
     }
 
 }

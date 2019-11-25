@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<androidx.cardview.widget.CardView
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    app:cardBackgroundColor="@color/colorPrimary"
+    android:id="@+id/create_mode_item_bottommenu"
+    android:foreground="@drawable/ripple"
+    android:focusable="true"
+    >
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start|center"
+        android:layout_margin="@dimen/material_size_16"
+        android:src="@drawable/ic_mode_edit_black_24dp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/create_mode"
+        android:gravity="center"
+        android:layout_gravity="center"
+
+        />
+</androidx.cardview.widget.CardView>
+    <androidx.cardview.widget.CardView
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    app:cardBackgroundColor="@color/colorPrimary"
+    android:foreground="@drawable/ripple"
+        android:focusable="true"
+    android:id="@+id/stats_item_bottommenu"
+    >
+        <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start|center"
+        android:layout_margin="@dimen/material_size_16"
+        android:src="@drawable/ic_equalizer_black_24dp"
+        />
+        <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/statistics"
+        android:gravity="center"
+        android:layout_gravity="center"
+
+        />
+    </androidx.cardview.widget.CardView>
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:foreground="@drawable/ripple"
+        android:focusable="true"
+        app:cardBackgroundColor="@color/colorPrimary"
+        android:id="@+id/settings_item_bottommenu"
+        >
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|center"
+            android:layout_margin="@dimen/material_size_16"
+            android:src="@drawable/ic_settings_black_24dp"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/settings"
+            android:gravity="center"
+            android:layout_gravity="center"
+
+            />
+    </androidx.cardview.widget.CardView>
+    <androidx.cardview.widget.CardView
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+        android:foreground="@drawable/ripple"
+        android:focusable="true"
+    app:cardBackgroundColor="@color/colorPrimary"
+    android:id="@+id/about_item_bottommenu"
+    >
+        <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start|center"
+        android:layout_margin="@dimen/material_size_16"
+        android:src="@drawable/ic_info_black_24dp"
+        />
+        <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/about"
+        android:gravity="center"
+        android:layout_gravity="center"
+
+        />
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>

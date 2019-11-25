@@ -18,7 +18,6 @@ class AddProjectViewModel(private val projectUseCase: ProjectInteractor) : ViewM
     internal val taskList: MutableLiveData<List<TaskModel>> = MutableLiveData()
 
 
-
     suspend fun addProject(title: String, startDate: String, endDate: String) {
         viewModelScope.launch(Dispatchers.IO) {
 
@@ -33,8 +32,13 @@ class AddProjectViewModel(private val projectUseCase: ProjectInteractor) : ViewM
 
     }
 
-    suspend fun addTask(title: String, tag: String, key: Int) {
-        projectUseCase.addTask(key, title, tag).run {
+    suspend fun addTask(
+        title: String,
+        tag: String,
+        key: Int,
+        projectTitle: String
+    ) {
+        projectUseCase.addTask(key, title, tag, projectTitle).run {
             when (status) {
                 Status.SUCCESS -> updateUISuccess.postValue(this)
                 else -> updateUIFailed.postValue(message)
@@ -42,13 +46,30 @@ class AddProjectViewModel(private val projectUseCase: ProjectInteractor) : ViewM
         }
     }
 
- suspend fun getListObserver(id:Int) : MutableLiveData<List<TaskModel>> {
-     val result = projectUseCase.getTasks(id)
-     when(result.status){
-         Status.SUCCESS -> taskList.postValue(result.data.map { TaskModel(it.key,it.title,it.tag) })
-         else -> updateUIFailed.postValue(result.message)
-     }
-    return taskList
+    suspend fun getListObserver(id: Int): MutableLiveData<List<TaskModel>> {
+        val result = projectUseCase.getTasks(id)
+        when (result.status) {
+            Status.SUCCESS -> taskList.postValue(result.data.map {
+                TaskModel(
+                    it.key,
+                    it.title,
+                    it.tag
+                )
+            })
+            else -> updateUIFailed.postValue(result.message)
+        }
+        return taskList
+    }
+
+    suspend fun getProjectLocally(id: Int) {
+        val result = projectUseCase.getProjectById(id)
+        if (result.status == Status.SUCCESS) {
+            title.postValue(result.data.title)
+            deadLine.postValue(result.data.endDate)
+        } else {
+            updateUIFailed.postValue("Sorry problem !")
+
+        }
     }
 
 

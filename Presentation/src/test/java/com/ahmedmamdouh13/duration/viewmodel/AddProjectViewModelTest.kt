@@ -5,7 +5,9 @@ import com.ahmedmamdouh13.domain.interactor.ProjectInteractor
 import com.ahmedmamdouh13.domain.status.MyResult
 import com.ahmedmamdouh13.domain.status.Status
 import com.ahmedmamdouh13.duration.Given.endDate
+import com.ahmedmamdouh13.duration.Given.projectDomain
 import com.ahmedmamdouh13.duration.Given.projectKey
+import com.ahmedmamdouh13.duration.Given.projectTitle
 import com.ahmedmamdouh13.duration.Given.startDate
 import com.ahmedmamdouh13.duration.Given.taskDomain
 import com.ahmedmamdouh13.duration.Given.taskTag
@@ -23,7 +25,7 @@ import org.junit.Test
 
 class AddProjectViewModelTest {
 
-   lateinit var viewModel:AddProjectViewModel
+    lateinit var viewModel: AddProjectViewModel
     @MockK
     lateinit var useCase: ProjectInteractor
 
@@ -33,11 +35,11 @@ class AddProjectViewModelTest {
 
     @Before
     fun setUp() {
-        MockKAnnotations.init(this,relaxUnitFun = true)
+        MockKAnnotations.init(this, relaxUnitFun = true)
     }
 
     @Test
-    fun shouldSucceedAddProjectToDB(){
+    fun shouldSucceedAddProjectToDB() {
         //given
         viewModel = AddProjectViewModel(useCase)
         val title = "Android Project"
@@ -46,27 +48,29 @@ class AddProjectViewModelTest {
         //when
         every {
             runBlocking {
-                useCase.addProject(title,startDate,endDate)
+                useCase.addProject(title, startDate, endDate)
             }
-        }returns MyResult(1L).apply { status = Status.SUCCESS}
+        } returns MyResult(1L).apply { status = Status.SUCCESS }
         //then
         runBlocking {
             viewModel.addProject(title, startDate, endDate)
-            assertEquals(useCase.addProject(title, startDate, endDate).status,
-                Status.SUCCESS)
+            assertEquals(
+                useCase.addProject(title, startDate, endDate).status,
+                Status.SUCCESS
+            )
 
 
         }
         verify {
             runBlocking {
-                useCase.addProject(title,startDate,endDate)
+                useCase.addProject(title, startDate, endDate)
             }
         }
 
     }
 
     @Test
-    fun refactorShouldReturnAddProjectToDb(){
+    fun refactorShouldReturnAddProjectToDb() {
         //given
         viewModel = AddProjectViewModel(useCase)
         //when
@@ -74,91 +78,104 @@ class AddProjectViewModelTest {
             runBlocking {
                 useCase.addProject(title, startDate, endDate)
             }
-        }returns MyResult(1L).apply { status = Status.SUCCESS }
+        } returns MyResult(1L).apply { status = Status.SUCCESS }
 
         //then
         runBlocking {
             viewModel.addProject(title, startDate, endDate)
 
-           val id =  useCase.addProject(title, startDate, endDate).data
-            assertEquals(id,1)
+            val id = useCase.addProject(title, startDate, endDate).data
+            assertEquals(id, 1)
         }
 
     }
 
     @Test
-    fun shouldFailAddProjectToDB(){
+    fun shouldFailAddProjectToDB() {
         //given
         viewModel = AddProjectViewModel(useCase)
 
         //when
         every {
             runBlocking {
-                useCase.addProject(title,startDate,endDate)
+                useCase.addProject(title, startDate, endDate)
             }
-        }returns MyResult(1L).apply { status = Status.ERROR}
+        } returns MyResult(1L).apply { status = Status.ERROR }
         //then
         runBlocking {
             viewModel.addProject(title, startDate, endDate)
-            assertEquals(useCase.addProject(title, startDate, endDate).status,
-                Status.ERROR)
+            assertEquals(
+                useCase.addProject(title, startDate, endDate).status,
+                Status.ERROR
+            )
 
         }
         verify {
             runBlocking {
-                useCase.addProject(title,startDate,endDate)
+                useCase.addProject(title, startDate, endDate)
             }
         }
 
     }
 
     @Test
-    fun shouldSucceedAddTask(){
+    fun shouldSucceedAddTask() {
         //given
         viewModel = AddProjectViewModel(useCase)
         //when
         every {
             runBlocking {
-                useCase.addTask(projectKey,taskTitle,taskTag)
+                useCase.addTask(projectKey, taskTitle, taskTag, projectTitle)
             }
-        }returns MyResult(1L).apply {status = Status.SUCCESS}
+        } returns MyResult(1L).apply { status = Status.SUCCESS }
         //then
         runBlocking {
-            viewModel.addTask(key = projectKey,title =  taskTitle,tag = taskTag)
+            viewModel.addTask(
+                title = taskTitle,
+                tag = taskTag,
+                key = projectKey,
+                projectTitle = projectTitle
+            )
             verify {
                 runBlocking {
-                    useCase.addTask(projectKey,taskTitle, taskTag)
+                    useCase.addTask(projectKey, taskTitle, taskTag, projectTitle)
                 }
             }
-            val result = useCase.addTask(projectKey, taskTitle, taskTag)
-            assertEquals(result.status ,Status.SUCCESS)
+            val result = useCase.addTask(projectKey, taskTitle, taskTag, projectTitle)
+            assertEquals(result.status, Status.SUCCESS)
         }
     }
 
     @Test
-    fun shouldFailAddTask(){
+    fun shouldFailAddTask() {
         //given
         viewModel = AddProjectViewModel(useCase)
         //when
         every {
             runBlocking {
-                useCase.addTask(projectKey,taskTitle,taskTag)
+                useCase.addTask(projectKey, taskTitle, taskTag, projectTitle)
             }
-        }returns MyResult(1L).apply {status = Status.ERROR}
+        } returns MyResult(1L).apply { status = Status.ERROR }
         //then
         runBlocking {
-            viewModel.addTask(key = projectKey,title =  taskTitle,tag = taskTag)
+            viewModel.addTask(
+                title = taskTitle,
+                tag = taskTag,
+                key = projectKey,
+                projectTitle = projectTitle
+            )
             verify {
                 runBlocking {
-                    useCase.addTask(projectKey,taskTitle, taskTag)
+                    useCase.addTask(projectKey, taskTitle, taskTag, projectTitle)
                 }
             }
-            val result = useCase.addTask(projectKey, taskTitle, taskTag)
-            assertEquals(result.status ,Status.ERROR)
+            val result = useCase.addTask(projectKey, taskTitle, taskTag, projectTitle)
+            assertEquals(result.status, Status.ERROR)
         }
     }
+
     @Test
-    fun shouldGetAllTasks(){
+    fun shouldGetAllTasks() {
         //given
         viewModel = AddProjectViewModel(useCase)
         val id = 0
@@ -167,7 +184,7 @@ class AddProjectViewModelTest {
             runBlocking {
                 useCase.getTasks(id)
             }
-        }returns MyResult(taskDomain).apply { status = Status.SUCCESS }
+        } returns MyResult(taskDomain).apply { status = Status.SUCCESS }
         //then
         runBlocking {
             viewModel.getListObserver(id)
@@ -177,6 +194,30 @@ class AddProjectViewModelTest {
                 useCase.getTasks(id)
             }
         }
+    }
+
+    @Test
+    fun shouldGetProjectByIdSuccess() {
+        //given
+        viewModel = AddProjectViewModel(useCase)
+        val id = 0
+        //when
+        every {
+            runBlocking {
+                useCase.getProjectById(id)
+            }
+        } returns MyResult(projectDomain).apply { status = Status.SUCCESS }
+        //then
+        runBlocking {
+            viewModel.getProjectLocally(id)
+            assertEquals(useCase.getProjectById(id).status, Status.SUCCESS)
+        }
+        verify {
+            runBlocking {
+                useCase.getProjectById(id)
+            }
+        }
+
     }
 
 }
